@@ -1,14 +1,21 @@
-// https://github.com/pinojs/pino-nextjs-example/blob/master/next-pino/logger.js
 // this is the logger for the browser
 import pino from 'pino';
 
 const config = {
-  serverUrl: process.env.REACT_APP_API_PATH || 'http://localhost:3000',
+  serverUrl: process.env.NEXT_SERVER_HOST,
   env: process.env.NODE_ENV,
-  publicUrl: process.env.PUBLIC_URL,
+  publicUrl: process.env.NEXT_PUBLIC_HOST,
 };
 
-const pinoConfig = {
+const pinoConfig: {
+  browser: {
+    asObject: boolean;
+    transmit?: {
+      level: string;
+      send: (level: string, logEvent: any) => void;
+    };
+  };
+} = {
   browser: {
     asObject: true,
   },
@@ -34,5 +41,5 @@ if (config.serverUrl) {
 
 const logger = pino(pinoConfig);
 
-export const log = (msg) => logger.info(msg);
+export const log = (msg: string) => logger.info(msg);
 export default logger;
