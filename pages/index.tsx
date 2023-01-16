@@ -1,19 +1,44 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from '@next/font/google';
-import styles from '../styles/Home.module.css';
+// import Head from 'next/head';
+// import Image from 'next/image';
+import * as React from 'react';
+import { useRouter } from 'next/router';
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
 
 import Layout from 'src/components/Layout';
+import SQLCard from 'src/components/Card/SQLCard';
+import { postQuestion } from 'src/api/question';
+import AnswerCardsGroup from 'src/components/Card/AnswerCardsGroup';
+import { questionsState, questionLoadingState } from 'src/recoil/atoms';
 
-const inter = Inter({ subsets: ['latin'] });
+export interface QuestionItem {
+  id: string;
+  question: string;
+  answer: string;
+}
 
 export default function Home() {
+  // const router = useRouter();
+  // const { q } = router.query;
+  // const question = decodeURIComponent(q as string);
+
+  const [questions, setQuestions] = useRecoilState(questionsState);
+  const [loading, setLoading] = useRecoilState(questionLoadingState);
+
+  const handleSearch = (q: string) => {
+    setLoading(true);
+    setQuestions((prev) => [...prev, q]);
+  };
+
   return (
     <>
-      <Layout>
-        test content
-        <br />
-        test content
+      <Layout disableSearch={loading} handleSearch={handleSearch}>
+        <AnswerCardsGroup />
       </Layout>
       {/* <Head>
         <title>Create Next App</title>

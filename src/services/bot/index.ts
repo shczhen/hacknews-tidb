@@ -39,6 +39,6 @@ export class BotService {
       `BotService.getAnswer`
     );
 
-    return data?.choices[0]?.text;
+    return { answer: data?.choices[0]?.text, id: data.id };
   }
 }

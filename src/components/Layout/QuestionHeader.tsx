@@ -43,7 +43,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export interface SearchAppBarProps {
+  handleSearch?: (question: string) => void;
+  disableSearch?: boolean;
+}
+
+export default function SearchAppBar(props: SearchAppBarProps) {
+  const { handleSearch, disableSearch = false } = props;
+
+  const [search, setSearch] = React.useState('');
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -76,6 +85,19 @@ export default function SearchAppBar() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
+                disabled={disableSearch}
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    console.log( 'search', search )
+                    if (handleSearch) {
+                      handleSearch(search);
+                    }
+                  }
+                }}
               />
             </Search>
           </Toolbar>

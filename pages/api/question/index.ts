@@ -19,6 +19,6 @@ export default async function handler(
   }
   const botService = new BotService(logger, process.env.OPENAI_API_KEY || '');
   const template = new Question2SQLTemplate();
-  const answer = await botService.getAnswer(question, template);
-  res.status(200).json({ answer });
+  const { answer, id } = await botService.getAnswer(question, template);
+  res.status(200).json({ answer, id });
 }

@@ -6,11 +6,14 @@ import '@fontsource/roboto/700.css';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '@src/theme';
 import type { AppProps } from 'next/app';
+import { RecoilRoot } from 'recoil';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </RecoilRoot>
   );
 }

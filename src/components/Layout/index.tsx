@@ -2,23 +2,26 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
-import Header from 'src/components/Layout/Header';
+import Header, {
+  SearchAppBarProps,
+} from '@src/components/Layout/QuestionHeader';
 import Seo from 'src/components/Layout/Seo';
 
 export interface LayoutProps {
   children: React.ReactNode;
 }
 
-export default function Layout(props: LayoutProps) {
-  const { children } = props;
+export default function Layout(props: LayoutProps & SearchAppBarProps) {
+  const { children, handleSearch, disableSearch } = props;
 
   return (
     <>
-      <Header />
+      <Header handleSearch={handleSearch} disableSearch={disableSearch} />
       <Seo />
       <Box
         sx={{
-          backgroundColor: 'background.paper',
+          // backgroundColor: 'background.paper',
+          backgroundColor: 'hn.background',
           height: 'auto',
           minHeight: 'calc(100vh - 64px)',
           mt: '64px',
