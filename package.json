@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev | pino-pretty",
     "build": "next build",
-    "start": "next start",
+    "start": "next start | pino-pretty",
     "lint": "next lint"
   },
   "dependencies": {
