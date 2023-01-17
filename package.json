@@ -29,6 +29,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "recoil": "^0.7.6",
+    "table": "^6.8.1",
     "typescript": "4.9.4"
   },
   "devDependencies": {
