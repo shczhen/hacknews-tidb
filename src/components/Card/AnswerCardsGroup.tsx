@@ -110,6 +110,7 @@ function AnswerCard(props: { question: string }) {
           rows={rows || []}
           heading={chartAnswer?.title}
           chart={chartAnswer?.chartName}
+          meta={chartAnswer}
         />
       )}
     </Box>
