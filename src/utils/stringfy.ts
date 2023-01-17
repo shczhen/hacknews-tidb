@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { table, getBorderCharacters } from 'table';
 
 export function row2string(row: { [x: string]: any }[]) {
@@ -10,7 +11,7 @@ export function row2string(row: { [x: string]: any }[]) {
   };
   const tableData = [
     header,
-    ...row.map((r) => header.map((h) => r[h] ? r[h].toString() : '')),
+    ...row.map((r) => header.map((h) => _.toString(r[h]))),
   ];
   return table(tableData, config);
 }

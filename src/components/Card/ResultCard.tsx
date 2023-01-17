@@ -13,12 +13,14 @@ export interface ResultCardProps {
   heading?: string;
   loading?: boolean;
   error?: Error | null;
+  chart?: string;
 }
 
 export default function ResultCard(props: ResultCardProps) {
-  const { sql, rows, heading, loading, error } = props;
+  const { sql, rows, heading, loading, error, chart } = props;
 
   const rowStrMemo = React.useMemo(() => {
+    if (!rows) return '';
     return row2string(rows);
   }, [rows]);
 
@@ -27,11 +29,12 @@ export default function ResultCard(props: ResultCardProps) {
       <CardContent>
         <Typography variant="h5" component="div">
           {heading || 'Result'}
+          {` [${chart}]`}
         </Typography>
         <br />
         {loading && <Skeleton variant="rounded" height={60} />}
         {error && <Typography color="error">{error.message}</Typography>}
-        <CodeBlock language='bash'>{rowStrMemo}</CodeBlock>
+        {!loading && rows && <CodeBlock language="bash">{rowStrMemo}</CodeBlock>}
       </CardContent>
     </Card>
   );
