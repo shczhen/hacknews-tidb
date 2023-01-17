@@ -10,7 +10,9 @@ import InsertChartRoundedIcon from '@mui/icons-material/InsertChartRounded';
 import TableChartRoundedIcon from '@mui/icons-material/TableChartRounded';
 
 import CodeBlock from 'src/components/Block/CodeBlock';
-import EChartBlock, {generateChartOptionByType} from 'src/components/Block/EChartBlock';
+import EChartBlock, {
+  generateChartOptionByType,
+} from 'src/components/Block/EChartBlock';
 import { row2string } from 'src/utils/stringfy';
 
 export interface ResultCardProps {
@@ -35,7 +37,7 @@ export default function ResultCard(props: ResultCardProps) {
   }, [rows]);
 
   const chartOptionMemo = React.useMemo(() => {
-    if (!rows || !chart) return null;
+    if (!rows || !chart) return undefined;
     return generateChartOptionByType(chart, rows, meta);
   }, [rows, chart]);
 
@@ -44,7 +46,6 @@ export default function ResultCard(props: ResultCardProps) {
       <CardContent>
         <Typography variant="h5" component="div">
           Result
-          {` [${chart}]`}
         </Typography>
         <Box display="flex" justifyContent="flex-end" pt="1rem" pb="1rem">
           <ButtonGroup
@@ -69,8 +70,15 @@ export default function ResultCard(props: ResultCardProps) {
         {error && <Typography color="error">{error.message}</Typography>}
         {!loading && rows && (
           <>
-            <CodeBlock language="bash" hidden={displayType !== 'table'}>{rowStrMemo}</CodeBlock>
-            {chartOptionMemo && <EChartBlock chart={chartOptionMemo} hidden={displayType !== 'chart'}/>}
+            <CodeBlock language="bash" hidden={displayType !== 'table'}>
+              {rowStrMemo}
+            </CodeBlock>
+            {typeof chartOptionMemo !== 'undefined' && (
+              <EChartBlock
+                chart={chartOptionMemo}
+                hidden={displayType !== 'chart'}
+              />
+            )}
           </>
         )}
       </CardContent>
