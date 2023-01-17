@@ -3,6 +3,7 @@ import * as React from 'react';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import sql from 'highlight.js/lib/languages/sql';
+import bash from 'highlight.js/lib/languages/bash';
 import 'highlight.js/styles/github.css';
 import Box from '@mui/material/Box';
 
@@ -11,14 +12,16 @@ import { IconCopyButton } from 'src/components/Button/CopyButton';
 interface CodeBlockProps {
   language?: string;
   children: React.ReactNode;
+  hidden?: boolean;
 }
 
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('sql', sql);
-const registeredLanguages = new Set(['sql']);
+hljs.registerLanguage('bash', bash);
+const registeredLanguages = new Set(['sql', 'javascript', 'bash']);
 
 export default function CodeBlock(props: CodeBlockProps) {
-  const { language = '', children } = props;
+  const { language = '', children, hidden } = props;
   const [highlighted, setHighlighted] = React.useState(false);
 
   const ref = React.useRef<HTMLPreElement>(null);
@@ -40,6 +43,7 @@ export default function CodeBlock(props: CodeBlockProps) {
         '& .hljs': {
           background: 'transparent',
         },
+        display: hidden ? 'none' : 'block',
       }}
     >
       {children && (

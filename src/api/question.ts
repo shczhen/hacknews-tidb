@@ -10,3 +10,13 @@ export function postQuestion(question: string) {
     })
     .then((response) => response.data);
 }
+
+export function postSQL2Chart(question: string, sql: string) {
+  return axios
+    .post('/api/chart', {
+      question,
+      sql,
+      token: TOEKN,
+    })
+    .then((response) => response.data);
+}

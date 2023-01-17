@@ -11,7 +11,8 @@ import {
 
 import { questionsState, questionLoadingState } from 'src/recoil/atoms';
 import SQLCard from 'src/components/Card/SQLCard';
-import { postQuestion } from 'src/api/question';
+import ResultCard from 'src/components/Card/ResultCard';
+import { postQuestion, postSQL2Chart } from 'src/api/question';
 import logger from 'next-pino/logger';
 
 export default function AnswerCardsGroup() {
@@ -36,6 +37,13 @@ function AnswerCard(props: { question: string }) {
   const { question } = props;
   const [answerData, setAnswerData] = React.useState('');
   const [error, setError] = React.useState<Error | null>(null);
+  const [rows, setRows] = React.useState<any[] | null>(null);
+  const [chartAnswer, setChartAnswer] = React.useState<{
+    chartName: string;
+    title: string;
+    columns: any[];
+  } | null>(null);
+  const [chartError, setChartError] = React.useState<Error | null>(null);
 
   const [loading, setLoading] = useRecoilState(questionLoadingState);
 
@@ -44,7 +52,7 @@ function AnswerCard(props: { question: string }) {
       try {
         const data = await postQuestion(question);
         setAnswerData(data.answer);
-        setLoading(false);
+        // setLoading(false);
       } catch (error: any) {
         logger.error(
           {
@@ -62,6 +70,29 @@ function AnswerCard(props: { question: string }) {
     }
   }, [question]);
 
+  React.useEffect(() => {
+    const getDataAndChart = async (question: string, sql: string) => {
+      try {
+        const data = await postSQL2Chart(question, sql);
+        setChartAnswer(JSON.parse(data.answer));
+        setRows(data.rows);
+        setLoading(false);
+      } catch (error: any) {
+        logger.error(
+          {
+            name: 'AnswerCard',
+            error,
+          },
+          `getDataAndChart error`
+        );
+        setChartError(error);
+      }
+    };
+    if (answerData) {
+      getDataAndChart(question, answerData);
+    }
+  }, [answerData]);
+
   return (
     <Box
       sx={{
@@ -72,6 +103,16 @@ function AnswerCard(props: { question: string }) {
     >
       <Typography>{`Q: ${question}`}</Typography>
       <SQLCard loading={!answerData} sql={answerData} error={error} />
+      {answerData && (
+        <ResultCard
+          loading={!rows}
+          sql={answerData}
+          rows={rows || []}
+          heading={chartAnswer?.title}
+          chart={chartAnswer?.chartName}
+          meta={chartAnswer}
+        />
+      )}
     </Box>
   );
 }
