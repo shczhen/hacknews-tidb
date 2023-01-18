@@ -13,9 +13,9 @@ import Container from '@mui/material/Container';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.white, 0.85),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.white, 0.95),
   },
   marginLeft: 0,
   width: '100%',
@@ -29,10 +29,11 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  color: theme.palette.hn.primary,
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
+  color: alpha(theme.palette.common.black, 0.75),
   width: '100%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -83,7 +84,7 @@ export default function SearchAppBar(props: SearchAppBarProps) {
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
-                placeholder="Search…"
+                placeholder="Input your question here…"
                 inputProps={{ 'aria-label': 'search' }}
                 disabled={disableSearch}
                 value={search}
@@ -92,7 +93,7 @@ export default function SearchAppBar(props: SearchAppBarProps) {
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
-                    console.log( 'search', search )
+                    console.log('search', search);
                     if (handleSearch) {
                       handleSearch(search);
                     }

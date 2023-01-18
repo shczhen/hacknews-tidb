@@ -8,6 +8,13 @@ declare module '@mui/material/styles' {
       background: React.CSSProperties['color'];
     };
   }
+
+  interface Palette {
+    hn: {
+      primary: React.CSSProperties['color'];
+      background: React.CSSProperties['color'];
+    };
+  }
 }
 
 const theme = createTheme({
