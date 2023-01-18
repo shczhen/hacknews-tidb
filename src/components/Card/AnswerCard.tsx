@@ -43,6 +43,8 @@ export default function AnswerCard(props: {
           `getAnswer error`
         );
         setError(error);
+      } finally {
+        setLoading(false);
       }
     };
 
