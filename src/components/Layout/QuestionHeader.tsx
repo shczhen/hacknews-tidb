@@ -10,6 +10,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import Container from '@mui/material/Container';
 
+import { TiDBCloudLogo } from 'src/components/Icons';
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -19,6 +21,8 @@ const Search = styled('div')(({ theme }) => ({
   },
   marginLeft: 0,
   width: '100%',
+  display: 'flex',
+  alignItems: 'center',
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -100,6 +104,30 @@ export default function SearchAppBar(props: SearchAppBarProps) {
                   }
                 }}
               />
+              <Box
+                display="flex"
+                alignItems="center"
+                gap="0.5rem"
+                pl="0.5rem"
+                pr="0.5rem"
+              >
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  whiteSpace="nowrap"
+                >
+                  Powered by
+                </Typography>
+                <TiDBCloudLogo />
+                <Typography
+                  variant="body2"
+                  fontWeight="bold"
+                  color="text.primary"
+                  whiteSpace="nowrap"
+                >
+                  TiDB Cloud
+                </Typography>
+              </Box>
             </Search>
           </Toolbar>
         </Container>
