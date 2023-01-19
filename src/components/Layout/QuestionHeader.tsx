@@ -118,15 +118,26 @@ export default function SearchAppBar(props: SearchAppBarProps) {
                 >
                   Powered by
                 </Typography>
-                <TiDBCloudLogo />
-                <Typography
-                  variant="body2"
-                  fontWeight="bold"
-                  color="text.primary"
-                  whiteSpace="nowrap"
+                <Box
+                  component="a"
+                  target="_blank"
+                  href="https://tidbcloud.com/channel?utm_source=chat2query-hackernews&utm_medium=referral"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                  }}
                 >
-                  TiDB Cloud
-                </Typography>
+                  <TiDBCloudLogo />
+                  <Typography
+                    variant="body2"
+                    fontWeight="bold"
+                    color="text.primary"
+                    whiteSpace="nowrap"
+                  >
+                    TiDB Cloud
+                  </Typography>
+                </Box>
               </Box>
             </Search>
           </Toolbar>
