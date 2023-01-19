@@ -163,11 +163,6 @@ export function generateLineOrBarChartOption(
     xAxis: {
       type: 'category',
       // data: rows.map((row) => row[x]),
-      axisLine: {
-        lineStyle: {
-          color: '#999'
-        },
-      },
     },
     yAxis: {
       type: 'value',
