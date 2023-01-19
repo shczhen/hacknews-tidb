@@ -13,6 +13,12 @@ import { postQuestion, postSQL2Chart } from 'src/api/question';
 import { questionLoadingState } from 'src/recoil/atoms';
 import logger from 'next-pino/logger';
 
+export interface ChartAnswerProps {
+  chartName: string;
+  title: string;
+  columns: any[];
+}
+
 export default function AnswerCard(props: {
   question: string;
   highlight?: boolean;
@@ -21,11 +27,9 @@ export default function AnswerCard(props: {
   const [answerData, setAnswerData] = React.useState('');
   const [error, setError] = React.useState<Error | null>(null);
   const [rows, setRows] = React.useState<any[] | null>(null);
-  const [chartAnswer, setChartAnswer] = React.useState<{
-    chartName: string;
-    title: string;
-    columns: any[];
-  } | null>(null);
+  const [chartAnswer, setChartAnswer] = React.useState<ChartAnswerProps | null>(
+    null
+  );
   const [chartError, setChartError] = React.useState<Error | null>(null);
 
   const [loading, setLoading] = useRecoilState(questionLoadingState);
@@ -78,6 +82,33 @@ export default function AnswerCard(props: {
       getDataAndChart(question, answerData);
     }
   }, [answerData]);
+
+  return (
+    <>
+      <CommonAnswerCard
+        question={question}
+        sqlAnswer={answerData}
+        chartAnswer={chartAnswer}
+        rows={rows}
+        answerError={error}
+        chartError={chartError}
+      />
+    </>
+  );
+}
+
+export interface CommonAnswerCard {
+  question: string;
+  sqlAnswer: string;
+  chartAnswer: ChartAnswerProps | null;
+  answerError: Error | null;
+  chartError: Error | null;
+  rows: any[] | null;
+}
+
+export function CommonAnswerCard(props: CommonAnswerCard) {
+  const { question, sqlAnswer, chartAnswer, answerError, chartError, rows } =
+    props;
 
   return (
     <Box
@@ -133,13 +164,13 @@ export default function AnswerCard(props: {
             </Box>
           </Box>
           <br />
-          <SQLCard loading={!answerData} sql={answerData} error={error} />
-          {answerData && (
+          <SQLCard loading={!sqlAnswer} sql={sqlAnswer} error={answerError} />
+          {sqlAnswer && (
             <>
               <br />
               <ResultCard
                 loading={chartError ? !chartError : !rows}
-                sql={answerData}
+                sql={sqlAnswer}
                 rows={rows || []}
                 heading={chartAnswer?.title}
                 chart={chartAnswer?.chartName}

@@ -3,9 +3,15 @@ import Box from '@mui/material/Box';
 import { useRecoilValue } from 'recoil';
 
 import { questionsState } from 'src/recoil/atoms';
-import AnswerCard from 'src/components/Card/AnswerCard';
+import AnswerCard, { CommonAnswerCard } from 'src/components/Card/AnswerCard';
 
-export default function AnswerCardsGroup() {
+import { HomeProps } from 'pages/index';
+
+export default function AnswerCardsGroup(props: { initialData: HomeProps }) {
+  const {
+    initialData: { rows, sqlAnswer, chartAnswer, question },
+  } = props;
+
   const questions = useRecoilValue(questionsState);
 
   return (
@@ -19,6 +25,14 @@ export default function AnswerCardsGroup() {
       {questions.map((q, idx) => (
         <AnswerCard key={`${idx}-${q}`} question={q} />
       ))}
+      <CommonAnswerCard
+        question={question}
+        sqlAnswer={sqlAnswer}
+        chartAnswer={chartAnswer}
+        rows={rows}
+        answerError={null}
+        chartError={null}
+      />
     </Box>
   );
 }
