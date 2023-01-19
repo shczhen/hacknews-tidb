@@ -148,7 +148,6 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
               <CopyShareLinkBtn question={question} />
             </Box>
           </Box>
-          <br />
           <SQLCard
             loading={answerError ? false : !sqlAnswer}
             sql={sqlAnswer}
@@ -156,7 +155,6 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
           />
           {sqlAnswer && (
             <>
-              <br />
               <ResultCard
                 loading={chartError ? !chartError : !rows}
                 error={chartError}
