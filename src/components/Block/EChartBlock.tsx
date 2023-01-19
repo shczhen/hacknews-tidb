@@ -162,6 +162,11 @@ export function generateLineOrBarChartOption(
     yAxis: {
       type: 'value',
     },
+    // tooltip: {
+    //   formatter: function (params: any) {
+    //     return JSON.stringify(params.data);
+    //   }
+    // },
     tooltip: {
       trigger: 'axis'
     },
