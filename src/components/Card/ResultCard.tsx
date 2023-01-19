@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+// import Card from '@mui/material/Card';
+// import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
 import Button from '@mui/material/Button';
@@ -42,12 +42,10 @@ export default function ResultCard(props: ResultCardProps) {
   }, [rows, chart]);
 
   return (
-    <Card sx={{ minWidth: 275 }} raised>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Result
-        </Typography>
-        <Box display="flex" justifyContent="flex-end" pt="1rem" pb="1rem">
+    <Box>
+      <Box display="flex" justifyContent="flex-end" pt="1rem" pb="1rem">
+        {loading && <Skeleton variant="rounded" width={204} height={38} />}
+        {!loading && (
           <ButtonGroup
             variant="contained"
             aria-label="switch between chart and table"
@@ -65,23 +63,23 @@ export default function ResultCard(props: ResultCardProps) {
               Table
             </Button>
           </ButtonGroup>
-        </Box>
-        {loading && <Skeleton variant="rounded" height={60} />}
-        {error && <Typography color="error">{error.message}</Typography>}
-        {!loading && rows && (
-          <>
-            <CodeBlock language="bash" hidden={displayType !== 'table'}>
-              {rowStrMemo}
-            </CodeBlock>
-            {typeof chartOptionMemo !== 'undefined' && (
-              <EChartBlock
-                chart={chartOptionMemo}
-                hidden={displayType !== 'chart'}
-              />
-            )}
-          </>
         )}
-      </CardContent>
-    </Card>
+      </Box>
+      {loading && <Skeleton variant="rounded" height={60} />}
+      {error && <Typography color="error">Error:{error.message}</Typography>}
+      {!loading && rows && (
+        <>
+          <CodeBlock language="bash" hidden={displayType !== 'table'}>
+            {rowStrMemo}
+          </CodeBlock>
+          {typeof chartOptionMemo !== 'undefined' && (
+            <EChartBlock
+              chart={chartOptionMemo}
+              hidden={displayType !== 'chart'}
+            />
+          )}
+        </>
+      )}
+    </Box>
   );
 }

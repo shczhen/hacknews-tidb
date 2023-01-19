@@ -127,10 +127,12 @@ export function generateLineOrBarChartOption(
   meta: {
     title: string;
     x: string;
-    y: string;
+    y: string | string[];
   }
 ) {
   const { x, y } = meta;
+
+  const flattenY = Array.isArray(y) ? y : [y];
 
   const option = {
     xAxis: {
@@ -140,12 +142,19 @@ export function generateLineOrBarChartOption(
     yAxis: {
       type: 'value',
     },
-    series: [
-      {
+    // series: [
+    //   {
+    //     data: rows.map((row) => row[y]),
+    //     type: type,
+    //   },
+    // ],
+    series: flattenY.map((y) => {
+      return {
         data: rows.map((row) => row[y]),
         type: type,
-      },
-    ],
+      };
+    }),
   };
+
   return option;
 }

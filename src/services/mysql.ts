@@ -29,7 +29,7 @@ export default class MySQLService {
     try {
       const [rows, fields] = await this.connection.execute(sql);
       return { rows, fields };
-    } catch (error) {
+    } catch (error: any) {
       return { error };
     }
   }
