@@ -22,9 +22,6 @@ export default function AnswerCardsGroup(props: { initialData: HomeProps }) {
         gap: '1rem',
       }}
     >
-      {questions.map((q, idx) => (
-        <AnswerCard key={`${idx}-${q}`} question={q} />
-      ))}
       <CommonAnswerCard
         question={question}
         sqlAnswer={sqlAnswer}
@@ -33,6 +30,9 @@ export default function AnswerCardsGroup(props: { initialData: HomeProps }) {
         answerError={null}
         chartError={null}
       />
+      {questions.map((q, idx) => (
+        <AnswerCard key={`${idx}-${q}`} question={q} />
+      ))}
     </Box>
   );
 }

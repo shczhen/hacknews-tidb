@@ -20,7 +20,7 @@ export interface ResultCardProps {
   rows: any[];
   heading?: string;
   loading?: boolean;
-  error?: Error | null;
+  error?: any;
   chart?: string;
   meta: any;
 }
@@ -49,6 +49,7 @@ export default function ResultCard(props: ResultCardProps) {
           <ButtonGroup
             variant="contained"
             aria-label="switch between chart and table"
+            disabled={!!error}
           >
             <Button
               startIcon={<InsertChartRoundedIcon />}
@@ -66,12 +67,19 @@ export default function ResultCard(props: ResultCardProps) {
         )}
       </Box>
       {loading && <Skeleton variant="rounded" height={60} />}
-      {error && <Typography color="error">Error:{error.message}</Typography>}
+      {error && <Typography color="error">{error.message}</Typography>}
+      {error?.response?.data?.error && (
+        <Typography color="error">
+          {error?.response?.data?.error.message}
+        </Typography>
+      )}
       {!loading && rows && (
         <>
-          <CodeBlock language="bash" hidden={displayType !== 'table'}>
-            {rowStrMemo}
-          </CodeBlock>
+          {!!rowStrMemo && (
+            <CodeBlock language="bash" hidden={displayType !== 'table'}>
+              {rowStrMemo}
+            </CodeBlock>
+          )}
           {typeof chartOptionMemo !== 'undefined' && (
             <EChartBlock
               chart={chartOptionMemo}

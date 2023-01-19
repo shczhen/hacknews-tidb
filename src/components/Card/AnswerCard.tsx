@@ -170,6 +170,7 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
               <br />
               <ResultCard
                 loading={chartError ? !chartError : !rows}
+                error={chartError}
                 sql={sqlAnswer}
                 rows={rows || []}
                 heading={chartAnswer?.title}
