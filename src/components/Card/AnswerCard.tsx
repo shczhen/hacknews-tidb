@@ -191,7 +191,7 @@ export function CopyShareLinkBtn(props: { question: string }) {
         onClick={() => {
           typeof navigator !== 'undefined' &&
             navigator.clipboard.writeText(
-              `${process.env.NEXT_PUBLIC_BASE_URL}?search=${encodeURIComponent(
+              `${process.env.NEXT_PUBLIC_HOST}?search=${encodeURIComponent(
                 question
               )}`
             );
