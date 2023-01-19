@@ -1,4 +1,6 @@
 import Layout from 'src/components/Layout';
+import CodeBlock from 'src/components/Block/CodeBlock';
+
 
 # About
 
@@ -9,7 +11,7 @@ Items are updated in real-time using official [HackerNews API](https://github.co
 
 There are two tables:
 
-```
+<CodeBlock language="sql">
 CREATE TABLE `items` (
   `id` bigint(20) NOT NULL,
   `title` varchar(198) DEFAULT NULL,
@@ -30,9 +32,8 @@ CREATE TABLE `items` (
   PRIMARY KEY (`id`) /*T![clustered_index] CLUSTERED */,
   KEY `index_items_type_time_id` (`type`,`time`,`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
-```
 
-```
+
 CREATE TABLE `users` (
   `id` varchar(255) NOT NULL,
   `about` text DEFAULT NULL,
@@ -41,7 +42,7 @@ CREATE TABLE `users` (
   `last_fetch_at` datetime NOT NULL DEFAULT '1970-01-01 00:00:01',
   PRIMARY KEY (`id`) /*T![clustered_index] CLUSTERED */
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
-```
+</CodeBlock>
 
 ## Thanks to
 [Hacker News](https://news.ycombinator.com/)
