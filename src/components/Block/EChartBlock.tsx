@@ -165,7 +165,12 @@ export function generateLineOrBarChartOption(
       // data: rows.map((row) => row[x]),
     },
     yAxis: {
-      type: 'value',
+      type: 'log',
+      axisLine: {
+        lineStyle: {
+            color: '#dc143c'
+        }
+      }
     },
     // tooltip: {
     //   formatter: function (params: any) {
