@@ -102,7 +102,7 @@ export default function SQLCard(props: SQLCardProps) {
         </AccordionSummary>
         <AccordionDetails>
           {loading && <Skeleton variant="rounded" height={60} />}
-          {sql && <CodeBlock language="sql">{`    ` + sql.trim()}</CodeBlock>}
+          {sql && <CodeBlock language="sql">{sql.trim()}</CodeBlock>}
           {error && <Typography color="error">{error.message}</Typography>}
         </AccordionDetails>
       </Accordion>
