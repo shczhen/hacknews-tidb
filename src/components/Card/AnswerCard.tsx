@@ -4,8 +4,8 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import ShareIcon from '@mui/icons-material/Share';
 import { useRecoilState } from 'recoil';
+import LinkIcon from '@mui/icons-material/Link';
 
 import SQLCard from 'src/components/Card/SQLCard';
 import ResultCard from 'src/components/Card/ResultCard';
@@ -147,20 +147,7 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
               {question}
             </Typography>
             <Box ml="auto">
-              <IconButton
-                aria-label="share"
-                size="small"
-                onClick={() => {
-                  typeof navigator !== 'undefined' &&
-                    navigator.clipboard.writeText(
-                      `${
-                        process.env.NEXT_PUBLIC_BASE_URL
-                      }?search=${encodeURIComponent(question)}`
-                    );
-                }}
-              >
-                <ShareIcon />
-              </IconButton>
+              <CopyShareLinkBtn question={question} />
             </Box>
           </Box>
           <br />
@@ -182,5 +169,54 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
         </CardContent>
       </Card>
     </Box>
+  );
+}
+
+export function CopyShareLinkBtn(props: { question: string }) {
+  const { question } = props;
+
+  const [isCopied, setIsCopied] = React.useState(false);
+
+  React.useEffect(() => {
+    if (isCopied) {
+      const timer = setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isCopied]);
+
+  return (
+    <>
+      <IconButton
+        aria-label="share"
+        size="small"
+        onClick={() => {
+          typeof navigator !== 'undefined' &&
+            navigator.clipboard.writeText(
+              `${process.env.NEXT_PUBLIC_BASE_URL}?search=${encodeURIComponent(
+                question
+              )}`
+            );
+          setIsCopied(true);
+        }}
+        sx={{
+          display: isCopied ? 'none' : 'inline-flex',
+        }}
+      >
+        <LinkIcon />
+      </IconButton>
+      {isCopied && (
+        <Box
+          sx={{
+            padding: '5px',
+          }}
+        >
+          <Typography component="span" variant="body2" lineHeight="24px">
+            URL copied!
+          </Typography>
+        </Box>
+      )}
+    </>
   );
 }

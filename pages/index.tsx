@@ -66,6 +66,16 @@ export default function Home(props: HomeProps) {
 // It won't be called on client-side, so you can even do
 // direct database queries.
 export async function getStaticProps() {
+  // if (process.env.NODE_ENV === 'development') {
+  //   return {
+  //     props: {
+  //       question: '',
+  //       rows: [],
+  //       sqlAnswer: '',
+  //       chartAnswer: {},
+  //     },
+  //   };
+  // }
   const MOCK_QUESTION = 'What is the trend of new users per month?';
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
