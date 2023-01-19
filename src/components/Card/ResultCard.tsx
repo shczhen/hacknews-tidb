@@ -50,7 +50,7 @@ export default function ResultCard(props: ResultCardProps) {
         pb="1rem"
         sx={{
           '& .MuiButtonGroup-grouped:not(:last-of-type)': {
-            borderColor: 'white',
+            borderColor: 'white !important',
           },
         }}
       >
