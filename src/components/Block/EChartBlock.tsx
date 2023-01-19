@@ -163,14 +163,14 @@ export function generateLineOrBarChartOption(
     xAxis: {
       type: 'category',
       // data: rows.map((row) => row[x]),
-    },
-    yAxis: {
-      type: 'log',
       axisLine: {
         lineStyle: {
-            color: '#dc143c'
-        }
-      }
+          color: '#999'
+        },
+      },
+    },
+    yAxis: {
+      type: 'value',
     },
     // tooltip: {
     //   formatter: function (params: any) {
