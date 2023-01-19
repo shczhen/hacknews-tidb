@@ -64,7 +64,7 @@ export default function SearchAppBar(props: SearchAppBarProps) {
 
   const handleSearch = (content: string) => {
     if (content) {
-      router.push(`?search=${encodeURIComponent(search)}`);
+      router.push(`/?search=${encodeURIComponent(search)}`);
     }
   };
 
