@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as echarts from 'echarts';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { SxProps, Theme } from '@mui/system';
 
 const vintageColorPalette = [
   '#d87c7c',
@@ -19,10 +20,11 @@ const vintageColorPalette = [
 export interface EChartBlockProps {
   chart: any;
   hidden?: boolean;
+  boxSx?: SxProps<Theme>;
 }
 
-export default function EChartBlock(props: any) {
-  const { chart, hidden } = props;
+export default function EChartBlock(props: EChartBlockProps) {
+  const { chart, hidden, boxSx } = props;
   const chartRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -62,6 +64,9 @@ export default function EChartBlock(props: any) {
       height="30rem"
       ref={chartRef}
       display={hidden ? 'none' : 'block'}
+      sx={{
+        ...boxSx,
+      }}
     ></Box>
   );
 }
@@ -168,7 +173,7 @@ export function generateLineOrBarChartOption(
     //   }
     // },
     tooltip: {
-      trigger: 'axis'
+      trigger: 'axis',
     },
     // series: [
     //   {
