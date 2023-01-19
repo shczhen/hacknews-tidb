@@ -1,15 +1,15 @@
 import Layout from 'src/components/Layout';
 
-# about
+# About
 
-"chat2query-hackernews" is short for "Chat to Query Hacker News", that means you can ask questions with natural language to query Hacker News database hosted by [TiDB Cloud](https://tidbcloud.com/channel?utm_source=chat2query-hackernews&utm_medium=referral)
+"chat2query-hackernews" is short for "Chat to Query Hacker News", that means you can ask questions in natural language without SQL skills to query Hacker News database.
 
 ## How it works
-Items are updated in real-time using official [HackerNews API](https://github.com/HackerNews/API). Data is stored in mysql-compatible and HTAP database [TiDB Cloud](https://tidbcloud.com/channel?utm_source=chat2query-hackernews&utm_medium=referral).
+Items are updated in real-time using official [HackerNews API](https://github.com/HackerNews/API). Data is stored in a MySQL-Compatible + HTAP + Serverless  database [TiDB Cloud](https://tidbcloud.com/channel?utm_source=chat2query-hackernews&utm_medium=referral).
 
 There are two tables:
 
-```sql
+```
 CREATE TABLE `items` (
   `id` bigint(20) NOT NULL,
   `title` varchar(198) DEFAULT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE `items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
 ```
 
-```sql
+```
 CREATE TABLE `users` (
   `id` varchar(255) NOT NULL,
   `about` text DEFAULT NULL,
@@ -44,9 +44,13 @@ CREATE TABLE `users` (
 ```
 
 ## Thanks to
-* [Hacker News](https://news.ycombinator.com/)
-* [Firebase](https://www.firebase.com/)
-* [Vercel](https://vercel.com/)
+[Hacker News](https://news.ycombinator.com/)
+
+[Firebase](https://www.firebase.com/)
+
+[Vercel](https://vercel.com/)
+
+[OpenAI](https://openai.com/)
 
 
 export default ({ children }) => <Layout markdown>{children}</Layout>

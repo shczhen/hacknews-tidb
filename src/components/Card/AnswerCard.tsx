@@ -129,8 +129,8 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
           animation: 'changebackgroudcolor 2s',
           '@keyframes changebackgroudcolor': {
             '0%': {
-              backgroundColor: 'grey.300',
-              borderColor: 'grey.500',
+              backgroundColor: 'transparent',
+              borderColor: '#333',
             },
             '100%': {
               backgroundColor: 'transparent',

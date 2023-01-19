@@ -59,9 +59,8 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: 'unset',
-  borderTop: '1px solid rgba(0, 0, 0, .125)',
   '& pre code.hljs': {
-    padding: '1rem 0',
+    padding: '0 0',
   },
 }));
 
@@ -102,7 +101,7 @@ export default function SQLCard(props: SQLCardProps) {
         </AccordionSummary>
         <AccordionDetails>
           {loading && <Skeleton variant="rounded" height={60} />}
-          {sql && <CodeBlock language="sql">{`    ` + sql.trim()}</CodeBlock>}
+          {sql && <CodeBlock language="sql">{sql.trim()}</CodeBlock>}
           {error && <Typography color="error">{error.message}</Typography>}
         </AccordionDetails>
       </Accordion>

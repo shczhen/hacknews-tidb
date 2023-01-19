@@ -39,6 +39,11 @@ export const FOOTER_ITEMS = [
     label: 'Hacker News',
     href: 'https://news.ycombinator.com',
   },
+  {
+    id: 'ossinsight',
+    label: 'OSS Insight',
+    href: 'https://ossinsight.io/',
+  },
 ];
 
 export function isOuterLink(href: string) {

@@ -87,7 +87,7 @@ export default function SearchAppBar(props: SearchAppBarProps) {
                 overflow="visible"
                 sx={{
                   lineHeight: 1.2,
-                  color: '#000',
+                  color: '#222',
                   fontSize: { xs: '16px', md: '20px' },
                 }}
               >
