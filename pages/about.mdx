@@ -2,10 +2,10 @@ import Layout from 'src/components/Layout';
 
 # About
 
-"chat2query-hackernews" is short for "Chat to Query Hacker News", that means you can ask questions with natural language to query Hacker News database hosted by [TiDB Cloud](https://tidbcloud.com/channel?utm_source=chat2query-hackernews&utm_medium=referral)
+"chat2query-hackernews" is short for "Chat to Query Hacker News", that means you can ask questions in natural language without SQL skills to query Hacker News database.
 
 ## How it works
-Items are updated in real-time using official [HackerNews API](https://github.com/HackerNews/API). Data is stored in mysql-compatible and HTAP database [TiDB Cloud](https://tidbcloud.com/channel?utm_source=chat2query-hackernews&utm_medium=referral).
+Items are updated in real-time using official [HackerNews API](https://github.com/HackerNews/API). Data is stored in a MySQL-Compatible + HTAP + Serverless  database [TiDB Cloud](https://tidbcloud.com/channel?utm_source=chat2query-hackernews&utm_medium=referral).
 
 There are two tables:
 
@@ -47,6 +47,7 @@ CREATE TABLE `users` (
 * [Hacker News](https://news.ycombinator.com/)
 * [Firebase](https://www.firebase.com/)
 * [Vercel](https://vercel.com/)
+* [OpenAI](https://openai.com/)
 
 
 export default ({ children }) => <Layout markdown>{children}</Layout>
