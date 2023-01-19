@@ -145,7 +145,7 @@ export default function SearchAppBar(props: SearchAppBarProps) {
                   <Typography
                     variant="body2"
                     fontWeight="bold"
-                    color="text.primary"
+                    color="#444"
                     whiteSpace="nowrap"
                   >
                     TiDB Cloud
