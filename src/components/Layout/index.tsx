@@ -7,13 +7,15 @@ import Header, {
 } from '@src/components/Layout/QuestionHeader';
 import Seo from 'src/components/Layout/Seo';
 import Footer from 'src/components/Layout/Footer';
+import 'github-markdown-css/github-markdown-light.css';
 
 export interface LayoutProps {
   children: React.ReactNode;
+  markdown?: boolean;
 }
 
 export default function Layout(props: LayoutProps & SearchAppBarProps) {
-  const { children, handleSearch, disableSearch } = props;
+  const { children, handleSearch, disableSearch, markdown } = props;
 
   return (
     <>
@@ -29,6 +31,9 @@ export default function Layout(props: LayoutProps & SearchAppBarProps) {
             xs: '48px',
             sm: '64px',
           },
+          '& .markdown-body': {
+            backgroundColor: 'hn.background',
+          },
         }}
       >
         <Container sx={{ height: '100%' }}>
@@ -38,6 +43,7 @@ export default function Layout(props: LayoutProps & SearchAppBarProps) {
               height: '100%',
               padding: { xs: '1rem', sm: '1.5rem' },
             }}
+            className={markdown ? 'markdown-body' : ''}
           >
             {children}
           </Box>
