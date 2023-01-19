@@ -100,7 +100,7 @@ export async function getStaticProps() {
       question: MOCK_QUESTION,
       rows,
       sqlAnswer,
-      chartAnswer: chartAnswer || '',
+      chartAnswer: JSON.parse(chartAnswer || ''),
     },
   };
 }
