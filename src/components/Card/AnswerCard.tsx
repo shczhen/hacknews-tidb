@@ -148,7 +148,11 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
             </Box>
           </Box>
           <br />
-          <SQLCard loading={!sqlAnswer} sql={sqlAnswer} error={answerError} />
+          <SQLCard
+            loading={answerError ? false : !sqlAnswer}
+            sql={sqlAnswer}
+            error={answerError}
+          />
           {sqlAnswer && (
             <>
               <br />

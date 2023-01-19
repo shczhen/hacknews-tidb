@@ -41,6 +41,12 @@ export default function ResultCard(props: ResultCardProps) {
     return generateChartOptionByType(chart, rows, meta);
   }, [rows, chart]);
 
+  React.useEffect(() => {
+    if (typeof chartOptionMemo !== 'undefined') {
+      setDisplayType(chartOptionMemo ? 'chart' : 'table');
+    }
+  }, [chartOptionMemo]);
+
   return (
     <Box>
       <Box
@@ -99,9 +105,13 @@ export default function ResultCard(props: ResultCardProps) {
       {!loading && rows && (
         <>
           {!!rowStrMemo && (
-            <CodeBlock language="bash" hidden={displayType !== 'table'} boxSx={{
-              border: '1px solid #e0e0e0',
-            }}>
+            <CodeBlock
+              language="bash"
+              hidden={displayType !== 'table'}
+              boxSx={{
+                border: '1px solid #e0e0e0',
+              }}
+            >
               {rowStrMemo}
             </CodeBlock>
           )}
