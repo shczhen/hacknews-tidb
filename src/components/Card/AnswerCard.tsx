@@ -3,6 +3,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import ShareIcon from '@mui/icons-material/Share';
 import { useRecoilState } from 'recoil';
 
 import SQLCard from 'src/components/Card/SQLCard';
@@ -109,9 +111,27 @@ export default function AnswerCard(props: {
         }}
       >
         <CardContent>
-          <Typography variant="h5" component="div">
-            {question}
-          </Typography>
+          <Box display="flex" alignItems="center">
+            <Typography variant="h5" component="div">
+              {question}
+            </Typography>
+            <Box ml="auto">
+              <IconButton
+                aria-label="share"
+                size="small"
+                onClick={() => {
+                  typeof navigator !== 'undefined' &&
+                    navigator.clipboard.writeText(
+                      `${
+                        process.env.NEXT_PUBLIC_BASE_URL
+                      }?search=${encodeURIComponent(question)}`
+                    );
+                }}
+              >
+                <ShareIcon />
+              </IconButton>
+            </Box>
+          </Box>
           <br />
           <SQLCard loading={!answerData} sql={answerData} error={error} />
           {answerData && (

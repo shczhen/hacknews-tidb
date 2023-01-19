@@ -23,9 +23,13 @@ export interface QuestionItem {
 }
 
 export default function Home() {
-  // const router = useRouter();
-  // const { q } = router.query;
+  const router = useRouter();
+  const { search } = router.query;
   // const question = decodeURIComponent(q as string);
+  const questionMemo = React.useMemo(() => {
+    if (search) return decodeURIComponent(search as string);
+    return null;
+  }, [search]);
 
   const [questions, setQuestions] = useRecoilState(questionsState);
   const [loading, setLoading] = useRecoilState(questionLoadingState);
@@ -34,6 +38,12 @@ export default function Home() {
     setLoading(true);
     setQuestions((prev) => [...prev, q]);
   };
+
+  React.useEffect(() => {
+    if (questionMemo) {
+      handleSearch(questionMemo);
+    }
+  }, [questionMemo]);
 
   return (
     <>

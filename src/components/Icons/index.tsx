@@ -14,8 +14,8 @@ export function TiDBCloudLogo(props: SvgIconProps) {
           gradientTransform="translate(-54830.49 -127812.94) scale(30.52 -21.8)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stop-color="#e30c34" />
-          <stop offset="1" stop-color="#b7062c" />
+          <stop offset="0" stopColor="#e30c34" />
+          <stop offset="1" stopColor="#b7062c" />
         </linearGradient>
       </defs>
       <g id="Layer_1" data-name="Layer 1">
