@@ -162,7 +162,7 @@ export function generateLineOrBarChartOption(
   const lineOption = {
     xAxis: {
       type: 'category',
-      // data: rows.map((row) => row[x]),
+      data: rows.map((row) => row[x]),
     },
     yAxis: {
       type: 'value',
