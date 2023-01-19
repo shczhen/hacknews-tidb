@@ -9,7 +9,7 @@ Items are updated in real-time using official [HackerNews API](https://github.co
 
 There are two tables:
 
-<pre>
+```
 CREATE TABLE `items` (
   `id` bigint(20) NOT NULL,
   `title` varchar(198) DEFAULT NULL,
@@ -30,9 +30,9 @@ CREATE TABLE `items` (
   PRIMARY KEY (`id`) /*T![clustered_index] CLUSTERED */,
   KEY `index_items_type_time_id` (`type`,`time`,`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
-</pre>
+```
 
-```sql
+```
 CREATE TABLE `users` (
   `id` varchar(255) NOT NULL,
   `about` text DEFAULT NULL,
