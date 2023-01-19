@@ -74,7 +74,8 @@ export default function SearchAppBar(props: SearchAppBarProps) {
               variant="body1"
               noWrap
               overflow="visible"
-              component="div"
+              component="a"
+              href="/"
               sx={{
                 lineHeight: 1.2,
                 color: '#000',

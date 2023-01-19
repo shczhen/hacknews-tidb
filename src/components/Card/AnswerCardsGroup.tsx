@@ -19,7 +19,7 @@ export default function AnswerCardsGroup(props: { initialData: HomeProps }) {
       sx={{
         display: 'flex',
         flexDirection: 'column-reverse',
-        gap: '1rem',
+        gap: '2rem',
       }}
     >
       {question && (

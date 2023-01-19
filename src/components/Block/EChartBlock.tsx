@@ -3,6 +3,19 @@ import * as echarts from 'echarts';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
+const vintageColorPalette = [
+  '#d87c7c',
+  '#919e8b',
+  '#d7ab82',
+  '#6e7074',
+  '#61a0a8',
+  '#efa18d',
+  '#787464',
+  '#cc7e63',
+  '#724e58',
+  '#4b565b',
+];
+
 export interface EChartBlockProps {
   chart: any;
   hidden?: boolean;
@@ -15,7 +28,14 @@ export default function EChartBlock(props: any) {
   React.useEffect(() => {
     if (!chartRef.current) return;
     if (!chart) return;
-    const chartInstance = echarts.init(chartRef.current);
+    echarts.registerTheme('vintage', {
+      color: vintageColorPalette,
+      backgroundColor: '#fef8ef',
+      graph: {
+        color: vintageColorPalette,
+      },
+    });
+    const chartInstance = echarts.init(chartRef.current, 'vintage');
     chartInstance.setOption(chart);
     const resize = () => {
       chartInstance.resize();
@@ -134,7 +154,7 @@ export function generateLineOrBarChartOption(
 
   const flattenY = Array.isArray(y) ? y : [y];
 
-  const option = {
+  const lineOption = {
     xAxis: {
       type: 'category',
       data: rows.map((row) => row[x]),
@@ -156,5 +176,21 @@ export function generateLineOrBarChartOption(
     }),
   };
 
-  return option;
+  const barOption = {
+    yAxis: {
+      type: 'category',
+      data: rows.map((row) => row[x]),
+    },
+    xAxis: {
+      type: 'value',
+    },
+    series: flattenY.map((y) => {
+      return {
+        data: rows.map((row) => row[y]),
+        type: type,
+      };
+    }),
+  };
+
+  return type === 'line' ? lineOption : barOption;
 }
