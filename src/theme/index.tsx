@@ -24,6 +24,11 @@ const theme = createTheme({
       background: '#f6f6ef',
     },
   },
+  typography: {
+    body1: {
+      fontSize: '14px',
+    },
+  }
 });
 
 export default theme;

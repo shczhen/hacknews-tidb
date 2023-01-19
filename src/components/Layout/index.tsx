@@ -24,7 +24,10 @@ export default function Layout(props: LayoutProps & SearchAppBarProps) {
           backgroundColor: 'hn.background',
           height: 'auto',
           minHeight: 'calc(100vh - 64px)',
-          mt: '64px',
+          mt: {
+            xs: '48px',
+            sm: '64px',
+          },
         }}
       >
         <Container sx={{ height: '100%' }}>

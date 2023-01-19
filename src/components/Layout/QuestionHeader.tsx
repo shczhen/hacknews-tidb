@@ -64,6 +64,7 @@ export default function SearchAppBar(props: SearchAppBarProps) {
         position="fixed"
         sx={{
           backgroundColor: 'hn.primary',
+          boxShadow: 'none',
         }}
       >
         <Container>
