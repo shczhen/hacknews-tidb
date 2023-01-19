@@ -6,6 +6,7 @@ import Header, {
   SearchAppBarProps,
 } from '@src/components/Layout/QuestionHeader';
 import Seo from 'src/components/Layout/Seo';
+import Footer from 'src/components/Layout/Footer';
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -42,6 +43,7 @@ export default function Layout(props: LayoutProps & SearchAppBarProps) {
           </Box>
         </Container>
       </Box>
+      <Footer />
     </>
   );
 }
