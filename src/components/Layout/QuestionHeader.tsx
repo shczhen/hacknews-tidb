@@ -63,10 +63,16 @@ export default function SearchAppBar(props: SearchAppBarProps) {
   const router = useRouter();
 
   const handleSearch = (content: string) => {
-    if (content) {
+    if (content && content !== router.query?.search) {
       router.push(`/?search=${encodeURIComponent(search)}`);
     }
   };
+
+  React.useEffect(() => {
+    if (router.query?.search) {
+      setSearch(decodeURIComponent(router.query?.search as string));
+    }
+  }, [router.query?.search]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
