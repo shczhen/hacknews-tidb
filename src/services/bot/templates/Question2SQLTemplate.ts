@@ -76,7 +76,7 @@ class Question2SQLTemplate implements Template {
     # Notice: don't use reserved word as alias name or column name in sql
     # Notice: don't output superfluous and leading double quote in sql
     
-    Let's think step by step, use best practice of writing SQL, use common table expression if and only if necessary, generate only one SQLto answer this question: "${question}"`;
+    Let's think step by step, use best practice of writing SQL, use common table expression if and only if necessary, generate only one SQL to answer this question: "${question}"`;
   }
 }
 
