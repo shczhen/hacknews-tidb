@@ -26,13 +26,14 @@ export interface SQLCardProps {
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
+  // border: `1px solid ${theme.palette.divider}`,
   '&:not(:last-child)': {
     borderBottom: 0,
   },
   '&:before': {
     display: 'none',
   },
+  backgroundColor: 'transparent',
 }));
 
 const AccordionSummary = styled((props: AccordionSummaryProps) => (
@@ -41,10 +42,11 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
     {...props}
   />
 ))(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === 'dark'
-      ? 'rgba(255, 255, 255, .05)'
-      : 'rgba(0, 0, 0, .03)',
+  backgroundColor: 'transparent',
+  // backgroundColor:
+  //   theme.palette.mode === 'dark'
+  //     ? 'rgba(255, 255, 255, .05)'
+  //     : 'rgba(0, 0, 0, .03)',
   flexDirection: 'row-reverse',
   '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
     transform: 'rotate(90deg)',

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -55,9 +56,17 @@ export interface SearchAppBarProps {
 }
 
 export default function SearchAppBar(props: SearchAppBarProps) {
-  const { handleSearch, disableSearch = false } = props;
+  const { disableSearch = false } = props;
 
   const [search, setSearch] = React.useState('');
+
+  const router = useRouter();
+
+  const handleSearch = (content: string) => {
+    if (content) {
+      router.push(`?search=${encodeURIComponent(search)}`);
+    }
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>

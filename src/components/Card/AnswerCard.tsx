@@ -120,9 +120,10 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
         sx={{
           minWidth: 425,
           boxShadow: 'none',
-          borderWidth: '1px',
-          borderStyle: 'solid',
-          borderColor: 'grey.300',
+          border: 'unset',
+          // borderWidth: '1px',
+          // borderStyle: 'solid',
+          // borderColor: 'grey.300',
           backgroundColor: 'transparent',
 
           animation: 'changebackgroudcolor 2s',

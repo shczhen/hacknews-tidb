@@ -30,7 +30,7 @@ export default function EChartBlock(props: any) {
     if (!chart) return;
     echarts.registerTheme('vintage', {
       color: vintageColorPalette,
-      backgroundColor: '#fef8ef',
+      backgroundColor: '#f6f6ef',
       graph: {
         color: vintageColorPalette,
       },
@@ -157,10 +157,13 @@ export function generateLineOrBarChartOption(
   const lineOption = {
     xAxis: {
       type: 'category',
-      data: rows.map((row) => row[x]),
+      // data: rows.map((row) => row[x]),
     },
     yAxis: {
       type: 'value',
+    },
+    tooltip: {
+      trigger: 'axis'
     },
     // series: [
     //   {
