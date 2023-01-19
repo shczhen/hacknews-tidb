@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Link from 'next/link';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -40,6 +41,10 @@ export const FOOTER_ITEMS = [
   },
 ];
 
+export function isOuterLink(href: string) {
+  return href.startsWith('http');
+}
+
 export default function Footer() {
   return (
     <Box
@@ -60,15 +65,14 @@ export default function Footer() {
         >
           {FOOTER_ITEMS.map((item, idx) => (
             <React.Fragment key={item.id}>
-              <Typography
-                component="a"
+              <Link
                 href={item.href}
-                target="_blank"
-                rel="noopener"
-                color={'text.secondary'}
+                target={isOuterLink(item.href) ? '_blank' : undefined}
               >
-                {item.label}
-              </Typography>
+                <Typography component="div" color={'text.secondary'}>
+                  {item.label}
+                </Typography>
+              </Link>
               {idx < FOOTER_ITEMS.length - 1 && bull}
             </React.Fragment>
           ))}

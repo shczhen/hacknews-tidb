@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Link from 'next/link';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -70,22 +71,22 @@ export default function SearchAppBar(props: SearchAppBarProps) {
       >
         <Container>
           <Toolbar sx={{ gap: '1rem', backgroundColor: 'hn.primary' }}>
-            <Typography
-              variant="body1"
-              noWrap
-              overflow="visible"
-              component="a"
-              href="/"
-              sx={{
-                lineHeight: 1.2,
-                color: '#000',
-                fontSize: { xs: '16px', md: '20px' },
-              }}
-            >
-              Chat2Query
-              <br />
-              Hackernews
-            </Typography>
+            <Link href="/">
+              <Typography
+                variant="body1"
+                noWrap
+                overflow="visible"
+                sx={{
+                  lineHeight: 1.2,
+                  color: '#000',
+                  fontSize: { xs: '16px', md: '20px' },
+                }}
+              >
+                Chat2Query
+                <br />
+                Hackernews
+              </Typography>
+            </Link>
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
