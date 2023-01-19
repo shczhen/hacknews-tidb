@@ -63,12 +63,13 @@ export default function SearchAppBar(props: SearchAppBarProps) {
       <AppBar
         position="fixed"
         sx={{
-          backgroundColor: 'hn.primary',
+          // backgroundColor: 'hn.primary',
+          backgroundColor: '#fff',
           boxShadow: 'none',
         }}
       >
         <Container>
-          <Toolbar sx={{ gap: '1rem' }}>
+          <Toolbar sx={{ gap: '1rem', backgroundColor: 'hn.primary' }}>
             <Typography
               variant="body1"
               noWrap

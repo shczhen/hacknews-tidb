@@ -20,11 +20,11 @@ export default function Layout(props: LayoutProps & SearchAppBarProps) {
       <Seo />
       <Box
         sx={{
-          backgroundColor: 'background.white',
+          backgroundColor: '#fff',
           // backgroundColor: 'hn.background',
           height: 'auto',
           minHeight: 'calc(100vh - 64px)',
-          mt: {
+          pt: {
             xs: '48px',
             sm: '64px',
           },
@@ -33,7 +33,7 @@ export default function Layout(props: LayoutProps & SearchAppBarProps) {
         <Container sx={{ height: '100%' }}>
           <Box
             sx={{
-              // backgroundColor: 'hn.background',
+              backgroundColor: 'hn.background',
               height: '100%',
               padding: { xs: '1rem', sm: '1.5rem' },
             }}

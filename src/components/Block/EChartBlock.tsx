@@ -39,7 +39,7 @@ export default function EChartBlock(props: any) {
     <Box
       component="div"
       width="100%"
-      height="40rem"
+      height="30rem"
       ref={chartRef}
       display={hidden ? 'none' : 'block'}
     ></Box>

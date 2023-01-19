@@ -6,6 +6,7 @@ import sql from 'highlight.js/lib/languages/sql';
 import bash from 'highlight.js/lib/languages/bash';
 import 'highlight.js/styles/github.css';
 import Box from '@mui/material/Box';
+import { SxProps, Theme } from '@mui/system';
 
 import { IconCopyButton } from 'src/components/Button/CopyButton';
 
@@ -13,6 +14,7 @@ interface CodeBlockProps {
   language?: string;
   children: React.ReactNode;
   hidden?: boolean;
+  boxSx?: SxProps<Theme>;
 }
 
 hljs.registerLanguage('javascript', javascript);
@@ -21,7 +23,7 @@ hljs.registerLanguage('bash', bash);
 const registeredLanguages = new Set(['sql', 'javascript', 'bash']);
 
 export default function CodeBlock(props: CodeBlockProps) {
-  const { language = '', children, hidden } = props;
+  const { language = '', children, hidden, boxSx } = props;
   const [highlighted, setHighlighted] = React.useState(false);
 
   const ref = React.useRef<HTMLPreElement>(null);
@@ -44,6 +46,7 @@ export default function CodeBlock(props: CodeBlockProps) {
           background: 'transparent',
         },
         display: hidden ? 'none' : 'block',
+        ...boxSx,
       }}
     >
       {children && (

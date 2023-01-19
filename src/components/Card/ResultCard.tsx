@@ -43,23 +43,46 @@ export default function ResultCard(props: ResultCardProps) {
 
   return (
     <Box>
-      <Box display="flex" justifyContent="flex-end" pt="1rem" pb="1rem">
+      <Box
+        display="flex"
+        justifyContent="flex-end"
+        pt="1rem"
+        pb="1rem"
+        sx={{
+          '& .MuiButtonGroup-grouped:not(:last-of-type)': {
+            borderColor: 'white',
+          },
+        }}
+      >
         {loading && <Skeleton variant="rounded" width={204} height={38} />}
         {!loading && (
           <ButtonGroup
             variant="contained"
             aria-label="switch between chart and table"
             disabled={!!error}
+            size="small"
           >
             <Button
               startIcon={<InsertChartRoundedIcon />}
               onClick={() => setDisplayType('chart')}
+              sx={{
+                backgroundColor: 'hn.primary',
+                '&:hover': {
+                  backgroundColor: 'hn.primary',
+                },
+              }}
             >
               Chart
             </Button>
             <Button
               startIcon={<TableChartRoundedIcon />}
               onClick={() => setDisplayType('table')}
+              sx={{
+                backgroundColor: 'hn.primary',
+                '&:hover': {
+                  backgroundColor: 'hn.primary',
+                },
+              }}
             >
               Table
             </Button>
@@ -76,7 +99,9 @@ export default function ResultCard(props: ResultCardProps) {
       {!loading && rows && (
         <>
           {!!rowStrMemo && (
-            <CodeBlock language="bash" hidden={displayType !== 'table'}>
+            <CodeBlock language="bash" hidden={displayType !== 'table'} boxSx={{
+              border: '1px solid #e0e0e0',
+            }}>
               {rowStrMemo}
             </CodeBlock>
           )}

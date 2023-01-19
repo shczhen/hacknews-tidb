@@ -123,19 +123,16 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
           borderWidth: '1px',
           borderStyle: 'solid',
           borderColor: 'grey.300',
+          backgroundColor: 'transparent',
 
-          animation: 'changebackgroudcolor 5s',
+          animation: 'changebackgroudcolor 2s',
           '@keyframes changebackgroudcolor': {
             '0%': {
-              backgroundColor: 'white',
-              borderColor: 'grey.300',
-            },
-            '50%': {
               backgroundColor: 'grey.300',
               borderColor: 'grey.500',
             },
             '100%': {
-              backgroundColor: 'white',
+              backgroundColor: 'transparent',
               borderColor: 'grey.300',
             },
           },
@@ -143,7 +140,7 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
       >
         <CardContent>
           <Box display="flex" alignItems="center">
-            <Typography variant="h5" component="div">
+            <Typography component="div" fontWeight="bold">
               {question}
             </Typography>
             <Box ml="auto">
