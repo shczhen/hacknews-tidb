@@ -55,7 +55,7 @@ export default function CodeBlock(props: CodeBlockProps) {
           sx={{
             position: 'absolute',
             right: markdown ? 16 : 0,
-            top: markdown ? 24 : 8,
+            top: markdown ? 8 : 8,
             backgroundColor: 'inherit',
           }}
         >
