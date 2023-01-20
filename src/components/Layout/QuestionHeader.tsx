@@ -99,7 +99,7 @@ export default function SearchAppBar(props: SearchAppBarProps) {
               >
                 Chat2Query
                 <br />
-                Hackernews
+                Hacker News
               </Typography>
             </Link>
             <Search>
