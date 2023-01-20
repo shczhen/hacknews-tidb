@@ -80,7 +80,7 @@ export async function getStaticProps() {
       },
     };
   }
-  const MOCK_QUESTION = 'What is the trend of new users per month?';
+  const MOCK_QUESTION = 'How many new stories and comments per month?';
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const res = await fetch('https://.../posts');
