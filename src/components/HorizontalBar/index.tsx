@@ -5,8 +5,7 @@ import Link from 'next/link';
 
 const STATIC_QUESTIONS = [
   `What is the trend of new users per month in 2022?`,
-  `User items in 2021?`,
-  `How many users are there in 2021?`,
+  `How many new users are there in 2022?`,
   `Total number of registered users?`,
   `What is the trend of new users per month?`,
   `What is the number of active users per year asc?`,
