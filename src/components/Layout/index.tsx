@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Script from 'next/script';
+import Head from 'next/head';
 
 import Header, {
   SearchAppBarProps,
@@ -12,13 +14,21 @@ import 'github-markdown-css/github-markdown-light.css';
 export interface LayoutProps {
   children: React.ReactNode;
   markdown?: boolean;
+  recapcha?: boolean;
 }
 
 export default function Layout(props: LayoutProps & SearchAppBarProps) {
-  const { children, handleSearch, disableSearch, markdown } = props;
+  const { children, handleSearch, disableSearch, markdown, recapcha } = props;
 
   return (
     <>
+      {/* {recapcha && (
+        <Script src="https://www.google.com/recaptcha/enterprise.js?render=6LddhhAkAAAAAK71u3xPexiZdT62i4q4PLETG47s"></Script>
+      )} */}
+      <Head>
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="https://www.google.com/recaptcha/enterprise.js?render=6LddhhAkAAAAAK71u3xPexiZdT62i4q4PLETG47s"></script>
+      </Head>
       <Header handleSearch={handleSearch} disableSearch={disableSearch} />
       <Seo />
       <Box
@@ -42,9 +52,9 @@ export default function Layout(props: LayoutProps & SearchAppBarProps) {
               backgroundColor: 'hn.background',
               height: '100%',
               padding: { xs: '1rem', sm: '1.5rem' },
-              "&.markdown-body pre": {
+              '&.markdown-body pre': {
                 backgroundColor: 'hn.background',
-              }
+              },
             }}
             className={markdown ? 'markdown-body' : ''}
           >

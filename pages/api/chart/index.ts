@@ -3,6 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { BotService } from 'src/services/bot';
 import MySQLService, { initConnection } from 'src/services/mysql';
 import Data2ChartTemplate from 'src/services/bot/templates/Data2ChartTemplate';
+import RecaptchaService from 'src/services/recaptcha';
+
 import logger from 'next-pino/logger';
 
 export default async function handler(
@@ -13,6 +15,12 @@ export default async function handler(
     res.status(405).end();
     return;
   }
+
+  const recaptchaService = new RecaptchaService();
+  const result = await recaptchaService.verifyRequest(req, res);
+
+  if (!result) return;
+
   const { question, sql, token } = req.body;
   if (!question || !token || token !== process.env.API_TOKEN) {
     res.status(400).end();
