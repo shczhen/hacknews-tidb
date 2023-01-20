@@ -13,7 +13,7 @@ const STATIC_QUESTIONS = [
   `Users who got the most voted on Hacker News?`,
   `How many people on Hacker News only post comments and no stories?`,
   `What are the most shared website domains?`,
-  `How many github websites are shared per month?`,
+  `How many github.com urls are shared per month?`,
   `Top TLD that is most used by the shared sites?`,
   `How frequently are SQL vs Hadoop mentioned on Hacker News each month?`,
   `Stories with most comments in 2022?`,
