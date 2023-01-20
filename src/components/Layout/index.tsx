@@ -42,6 +42,9 @@ export default function Layout(props: LayoutProps & SearchAppBarProps) {
               backgroundColor: 'hn.background',
               height: '100%',
               padding: { xs: '1rem', sm: '1.5rem' },
+              "&.markdown-body pre": {
+                backgroundColor: 'hn.background',
+              }
             }}
             className={markdown ? 'markdown-body' : ''}
           >

@@ -15,6 +15,7 @@ interface CodeBlockProps {
   children: React.ReactNode;
   hidden?: boolean;
   boxSx?: SxProps<Theme>;
+  markdown?: boolean;
 }
 
 hljs.registerLanguage('javascript', javascript);
@@ -23,7 +24,7 @@ hljs.registerLanguage('bash', bash);
 const registeredLanguages = new Set(['sql', 'javascript', 'bash']);
 
 export default function CodeBlock(props: CodeBlockProps) {
-  const { language = '', children, hidden, boxSx } = props;
+  const { language = '', children, hidden, boxSx, markdown } = props;
   const [highlighted, setHighlighted] = React.useState(false);
 
   const ref = React.useRef<HTMLPreElement>(null);
@@ -53,8 +54,8 @@ export default function CodeBlock(props: CodeBlockProps) {
         <Box
           sx={{
             position: 'absolute',
-            right: 0,
-            top: 8,
+            right: markdown ? 16 : 0,
+            top: markdown ? 24 : 8,
             backgroundColor: 'inherit',
           }}
         >
