@@ -160,6 +160,9 @@ export function generateLineOrBarChartOption(
   const flattenY = Array.isArray(y) ? y : [y];
 
   const lineOption = {
+    legend: {
+      orient: 'horizontal',
+    },
     xAxis: {
       type: 'category',
       splitLine: {
@@ -181,14 +184,14 @@ export function generateLineOrBarChartOption(
         },
       },
     },
-    tooltip: {
-      formatter: function (params: any) {
-        return JSON.stringify(params.data);
-      }
-    },
 //     tooltip: {
-//       trigger: 'axis',
+//       formatter: function (params: any) {
+//         return JSON.stringify(params.data);
+//       }
 //     },
+    tooltip: {
+      trigger: 'axis',
+    },
     // series: [
     //   {
     //     data: rows.map((row) => row[y]),
