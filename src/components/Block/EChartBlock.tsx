@@ -166,6 +166,13 @@ export function generateLineOrBarChartOption(
     },
     yAxis: {
       type: 'value',
+      splitLine: {
+        show: true,
+        lineStyle: {
+          style: 'dashed',
+          color: 'hn.secondary',
+        },
+      },
     },
     // tooltip: {
     //   formatter: function (params: any) {
