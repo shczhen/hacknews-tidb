@@ -12,7 +12,7 @@ const STATIC_QUESTIONS = [
 // default is 3000 ms
 const INTERVAL = 3000;
 
-export default function CarouselHorizontalBar() {
+export default function HorizontalBar() {
   const [index, setIndex] = React.useState(0);
 
   React.useEffect(() => {

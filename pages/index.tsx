@@ -12,7 +12,7 @@ import MySQLService, { initConnection } from 'src/services/mysql';
 import Data2ChartTemplate from 'src/services/bot/templates/Data2ChartTemplate';
 import Question2SQLTemplate from 'src/services/bot/templates/Question2SQLTemplate';
 import { ChartAnswerProps } from 'src/components/Card/AnswerCard';
-import CarouselHorizontalBar from 'src/components/HorizontalBar/Carousel';
+import HorizontalBar from '@src/components/HorizontalBar';
 
 export interface QuestionItem {
   id: string;
@@ -57,7 +57,7 @@ export default function Home(props: HomeProps) {
   return (
     <>
       <Layout disableSearch={loading}>
-        {questions.length < 1 && <CarouselHorizontalBar />}
+        {questions.length < 1 && <HorizontalBar />}
         <AnswerCardsGroup
           initialData={{ rows, sqlAnswer, chartAnswer, question }}
         />
