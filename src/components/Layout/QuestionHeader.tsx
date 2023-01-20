@@ -11,6 +11,7 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import Container from '@mui/material/Container';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import { TiDBCloudLogo } from 'src/components/Icons';
 
@@ -123,6 +124,21 @@ export default function SearchAppBar(props: SearchAppBarProps) {
                   }
                 }}
               />
+              <IconButton
+                size="small"
+                aria-label="clear"
+                disableRipple
+                disabled={disableSearch}
+                onClick={() => {
+                  setSearch('');
+                  router.query?.search && router.push('/');
+                }}
+                sx={{
+                  display: search ? 'inline-flex' : 'none',
+                }}
+              >
+                <ClearIcon fontSize="small" />
+              </IconButton>
               <Box
                 display="flex"
                 alignItems="center"
