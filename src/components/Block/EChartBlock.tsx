@@ -181,14 +181,14 @@ export function generateLineOrBarChartOption(
         },
       },
     },
-    // tooltip: {
-    //   formatter: function (params: any) {
-    //     return JSON.stringify(params.data);
-    //   }
-    // },
     tooltip: {
-      trigger: 'axis',
+      formatter: function (params: any) {
+        return JSON.stringify(params.data);
+      }
     },
+//     tooltip: {
+//       trigger: 'axis',
+//     },
     // series: [
     //   {
     //     data: rows.map((row) => row[y]),
