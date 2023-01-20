@@ -14,6 +14,7 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import CircularProgress from '@mui/material/CircularProgress';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import ReportProblemRoundedIcon from '@mui/icons-material/ReportProblemRounded';
+import { format as sqlFormat } from 'sql-formatter';
 
 import CodeBlock from 'src/components/Block/CodeBlock';
 
@@ -101,7 +102,11 @@ export default function SQLCard(props: SQLCardProps) {
         </AccordionSummary>
         <AccordionDetails>
           {loading && <Skeleton variant="rounded" height={60} />}
-          {sql && <CodeBlock language="sql">{sql.trim()}</CodeBlock>}
+          {sql && (
+            <CodeBlock language="sql">
+              {sqlFormat(sql, { language: 'mysql' })}
+            </CodeBlock>
+          )}
           {error && <Typography color="error">{error.message}</Typography>}
         </AccordionDetails>
       </Accordion>
