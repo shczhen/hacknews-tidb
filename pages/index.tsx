@@ -46,14 +46,16 @@ export default function Home(props: HomeProps) {
   };
 
   React.useEffect(() => {
-    if (questionMemo) {
+    const lastQuestion =
+      questions.length > 0 ? questions[questions.length - 1] : '';
+    if (questionMemo && questionMemo !== lastQuestion) {
       handleSearch(questionMemo);
     }
-  }, [questionMemo]);
+  }, [questionMemo, questions]);
 
   return (
     <>
-      <Layout disableSearch={loading} handleSearch={handleSearch}>
+      <Layout disableSearch={loading}>
         <AnswerCardsGroup
           initialData={{ rows, sqlAnswer, chartAnswer, question }}
         />
@@ -66,16 +68,16 @@ export default function Home(props: HomeProps) {
 // It won't be called on client-side, so you can even do
 // direct database queries.
 export async function getStaticProps() {
-  // if (process.env.NODE_ENV === 'development') {
-  //   return {
-  //     props: {
-  //       question: '',
-  //       rows: [],
-  //       sqlAnswer: '',
-  //       chartAnswer: {},
-  //     },
-  //   };
-  // }
+  if (process.env.NODE_ENV === 'development') {
+    return {
+      props: {
+        question: '',
+        rows: [],
+        sqlAnswer: '',
+        chartAnswer: {},
+      },
+    };
+  }
   const MOCK_QUESTION = 'What is the trend of new users per month?';
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
