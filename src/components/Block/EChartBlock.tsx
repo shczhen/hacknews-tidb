@@ -166,7 +166,7 @@ export function generateLineOrBarChartOption(
         show: true,
         lineStyle: {
           type: 'dashed',
-          color: '#999',
+          color: 'lightgrey',
         },
       },
       data: rows.map((row) => row[x]),
@@ -177,7 +177,7 @@ export function generateLineOrBarChartOption(
         show: true,
         lineStyle: {
           type: 'dashed',
-          color: '#999',
+          color: 'lightgrey',
         },
       },
     },
