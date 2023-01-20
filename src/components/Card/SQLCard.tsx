@@ -61,7 +61,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: 'unset',
   '& pre code.hljs': {
-    padding: '0 2rem',
+    padding: '0 1.5rem',
   },
 }));
 
