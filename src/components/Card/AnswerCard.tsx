@@ -142,7 +142,7 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
         <CardContent>
           <Box display="flex" alignItems="center">
             <Typography component="div" fontWeight="bold">
-              Question: {question}
+              Q: {question}
             </Typography>
             <Box ml="auto">
               <CopyShareLinkBtn question={question} />
