@@ -160,9 +160,6 @@ export function generateLineOrBarChartOption(
   const flattenY = Array.isArray(y) ? y : [y];
 
   const lineOption = {
-    legend: {
-      orient: 'horizontal',
-    },
     xAxis: {
       type: 'category',
       splitLine: {
