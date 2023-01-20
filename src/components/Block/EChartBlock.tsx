@@ -162,6 +162,13 @@ export function generateLineOrBarChartOption(
   const lineOption = {
     xAxis: {
       type: 'category',
+      splitLine: {
+        show: true,
+        lineStyle: {
+          type: 'dashed',
+          color: '#999',
+        },
+      },
       data: rows.map((row) => row[x]),
     },
     yAxis: {
@@ -169,8 +176,8 @@ export function generateLineOrBarChartOption(
       splitLine: {
         show: true,
         lineStyle: {
-          style: 'dashed',
-          color: 'hn.secondary',
+          type: 'dashed',
+          color: '#999',
         },
       },
     },
