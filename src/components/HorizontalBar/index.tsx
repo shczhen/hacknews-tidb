@@ -10,7 +10,7 @@ const STATIC_QUESTIONS = [
 ];
 
 // default is 3000 ms
-const INTERVAL = 3000;
+const INTERVAL = 5000;
 
 export default function HorizontalBar() {
   const [index, setIndex] = React.useState(0);
@@ -31,7 +31,8 @@ export default function HorizontalBar() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: '0.5rem',
+        gap: '0.2rem',
+        color: '#777',
       }}
     >
       <Link href={`/?search=${encodeURIComponent(STATIC_QUESTIONS[index])}`}>
