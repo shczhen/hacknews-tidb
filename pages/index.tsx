@@ -57,7 +57,7 @@ export default function Home(props: HomeProps) {
   return (
     <>
       <Layout disableSearch={loading}>
-        {questions.length <= 1 && <HorizontalBar />}
+        {questions.length < 5 && <HorizontalBar />}
         <AnswerCardsGroup
           initialData={{ rows, sqlAnswer, chartAnswer, question }}
         />
