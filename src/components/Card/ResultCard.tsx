@@ -60,7 +60,7 @@ export default function ResultCard(props: ResultCardProps) {
           },
         }}
       >
-        {loading && <Skeleton variant="rounded" width={204} height={38} />}
+        {loading && <Skeleton variant="rounded" width={204} height={38} animation={false} />}
         {!loading && (
           <ButtonGroup
             variant="contained"
@@ -95,7 +95,7 @@ export default function ResultCard(props: ResultCardProps) {
           </ButtonGroup>
         )}
       </Box>
-      {loading && <Skeleton variant="rounded" height={60} />}
+      {loading && <Skeleton variant="rounded" height={60} animation={false} />}
       {error && <Typography color="error">{error.message}</Typography>}
       {error?.response?.data?.error && (
         <Typography color="error">
