@@ -101,7 +101,7 @@ export default function SQLCard(props: SQLCardProps) {
           </Box>
         </AccordionSummary>
         <AccordionDetails>
-          {loading && <Skeleton variant="rounded" height={60} />}
+          {loading && <Skeleton variant="text" sx={{ fontSize: '1rem' }} />}
           {sql && (
             <CodeBlock language="sql">
               {sqlFormat(sql, { language: 'mysql' })}
