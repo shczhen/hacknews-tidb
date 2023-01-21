@@ -60,7 +60,7 @@ export default function ResultCard(props: ResultCardProps) {
           },
         }}
       >
-<!--         {loading && <Skeleton variant="rounded" width={204} height={38} />} -->
+//        {loading && <Skeleton variant="rounded" width={204} height={38} />}
         {loading && <Skeleton variant="text" sx={{ fontSize: '1rem' }} />}
         {!loading && (
           <ButtonGroup
