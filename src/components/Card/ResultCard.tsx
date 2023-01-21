@@ -109,7 +109,7 @@ export default function ResultCard(props: ResultCardProps) {
               language="bash"
               hidden={displayType !== 'table'}
               boxSx={{
-                border: '1px solid #e0e0e0',
+                border: '0.5px solid #e0e0e0',
               }}
             >
               {rowStrMemo}
@@ -120,7 +120,7 @@ export default function ResultCard(props: ResultCardProps) {
               chart={chartOptionMemo}
               hidden={displayType !== 'chart'}
               boxSx={{
-                border: '1px solid #e0e0e0',
+                border: '0.5px solid #e0e0e0',
               }}
             />
           )}
