@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 
 const STATIC_QUESTIONS = [
-  `What is the trend of new users per month in 2022?`,
   `How many new users are there in 2022?`,
   `Total number of registered users?`,
   `What is the trend of new users per month?`,
