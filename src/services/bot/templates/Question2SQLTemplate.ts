@@ -3,7 +3,6 @@ import { Template } from 'src/services/bot/types';
 class Question2SQLTemplate implements Template {
   getTemplate(question: string) {
     return `# MySQL tables, for hackernews, with their properties:
-#
 # items:
 # - id(bigint) primary key
 # - title(varchar)
