@@ -20,11 +20,6 @@ export const FOOTER_ITEMS = [
     href: '/about',
   },
   {
-    id: 'tidbcloud',
-    label: 'TiDB Cloud',
-    href: 'https://tidbcloud.com/channel?utm_source=chat2query-hackernews&utm_medium=referral',
-  },
-  {
     id: 'github',
     label: 'GitHub',
     href: 'https://github.com/shczhen/hacknews-tidb',
@@ -38,6 +33,11 @@ export const FOOTER_ITEMS = [
     id: 'hackernews',
     label: 'Hacker News',
     href: 'https://news.ycombinator.com',
+  },
+  {
+    id: 'tidbcloud',
+    label: 'TiDB Cloud',
+    href: 'https://tidbcloud.com/channel?utm_source=chat2query-hackernews&utm_medium=referral',
   },
   {
     id: 'ossinsight',
