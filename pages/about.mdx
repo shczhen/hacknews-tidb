@@ -33,10 +33,6 @@ CREATE TABLE `items` (
   PRIMARY KEY (`id`) /*T![clustered_index] CLUSTERED */,
   KEY `index_items_type_time_id` (`type`,`time`,`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
-
-</CodeBlock>
-
-<CodeBlock markdown language="sql">
   
 CREATE TABLE `users` (
   `id` varchar(255) NOT NULL,
@@ -50,13 +46,10 @@ CREATE TABLE `users` (
 </CodeBlock>
 
 ## Thanks to
-[Hacker News](https://news.ycombinator.com/)
-
-[Firebase](https://www.firebase.com/)
-
-[Vercel](https://vercel.com/)
-
-[OpenAI](https://openai.com/)
+* [Hacker News](https://news.ycombinator.com/)
+* [Firebase](https://www.firebase.com/)
+* [Vercel](https://vercel.com/)
+* [OpenAI](https://openai.com/)
 
 
 export default ({ children }) => <Layout markdown>{children}</Layout>
