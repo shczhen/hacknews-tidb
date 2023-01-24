@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 const STATIC_QUESTIONS = [
   `How many new users are there in 2022?`,
+  `how many times is ChatGPT mentioned MoM`,
   `Total number of registered users?`,
   `What is the trend of new users per month?`,
   `What is the number of active users per year asc?`,
@@ -12,11 +13,14 @@ const STATIC_QUESTIONS = [
   `Users who got the most voted on Hacker News?`,
   `How many people on Hacker News only post comments and no stories?`,
   `What are the most shared website domains?`,
+  `how many times is Serverless mentioned on hackernews per month`,
   `How many github.com urls are shared per month?`,
   `Top TLD that is most used by the shared sites?`,
+  `how many times is Web3 mentioned on hackernews per month`,
   `How frequently are SQL vs Hadoop mentioned on Hacker News each month?`,
   `Stories with most comments in 2022?`,
   `Stories with most score in 2022?`,
+  `how many times is hn.algolia.com mentioned each month`,
 ];
 
 // default is 3000 ms
