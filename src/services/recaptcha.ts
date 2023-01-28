@@ -1,20 +1,30 @@
-import { RecaptchaEnterpriseServiceClient } from '@google-cloud/recaptcha-enterprise';
+// import { RecaptchaEnterpriseServiceClient } from '@google-cloud/recaptcha-enterprise';
+// import { GoogleAuth } from 'google-auth-library';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import pinoLogger from 'next-pino/logger';
 import pino from 'pino';
+import axios, { AxiosInstance } from 'axios';
 
 export default class RecaptchaService {
-  private client: RecaptchaEnterpriseServiceClient;
-  private projectPath: string;
+  // private client: RecaptchaEnterpriseServiceClient;
+  // private projectPath: string;
   private readonly logger: pino.Logger;
+  private readonly ASSESSMENTS_URL: string;
+  private readonly fetcher: AxiosInstance;
 
   constructor(logger?: any) {
-    this.client = new RecaptchaEnterpriseServiceClient();
-    this.projectPath = this.client.projectPath(
-      process.env.GCP_RECAPTCHA_PROJECT_ID || ''
-    );
+    // this.client = new RecaptchaEnterpriseServiceClient();
+    // this.projectPath = this.client.projectPath(
+    //   process.env.GCP_RECAPTCHA_PROJECT_ID || ''
+    // );
     this.logger = logger || pinoLogger;
+    const parents = `projects/${process.env.GCP_RECAPTCHA_PROJECT_ID}`;
+    const apiKey = process.env.GCP_RECAPTCHA_API_KEY;
+    this.ASSESSMENTS_URL = `https://recaptchaenterprise.googleapis.com/v1/${parents}/assessments?key=${apiKey}`;
+    this.fetcher = axios.create({
+      timeout: 5000,
+    });
   }
 
   async createAssessment(token: string) {
@@ -25,9 +35,16 @@ export default class RecaptchaService {
           siteKey: process.env.NEXT_PUBLIC_RECAPTCHA_KEY,
         },
       },
-      parent: this.projectPath,
+      // parent: this.projectPath,
     };
-    const [response] = await this.client.createAssessment(request);
+    // const [response] = await this.client.createAssessment(request);
+    const response = this.fetcher
+      .post(this.ASSESSMENTS_URL, request.assessment, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((res) => res.data);
     return response;
   }
 

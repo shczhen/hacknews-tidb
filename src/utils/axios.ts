@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const commonCfg = {
   // baseURL: 'https://api.example.com',
-  timeout: 10000,
+  timeout: 15000,
 };
 
 const instance = axios.create(commonCfg);
