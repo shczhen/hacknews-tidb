@@ -17,11 +17,13 @@ import ReportProblemRoundedIcon from '@mui/icons-material/ReportProblemRounded';
 import { format as sqlFormat } from 'sql-formatter';
 
 import CodeBlock from 'src/components/Block/CodeBlock';
+import RetryButton from 'src/components/Button/RetryButton';
 
 export interface SQLCardProps {
   sql: string;
   loading?: boolean;
   error?: Error | null;
+  onRetry?: (type?: 'sql' | 'chart') => void;
 }
 
 const Accordion = styled((props: AccordionProps) => (
@@ -66,7 +68,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function SQLCard(props: SQLCardProps) {
-  const { sql, loading, error } = props;
+  const { sql, loading, error, onRetry } = props;
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (event: React.SyntheticEvent, newExpanded: boolean) => {
@@ -101,13 +103,20 @@ export default function SQLCard(props: SQLCardProps) {
           </Box>
         </AccordionSummary>
         <AccordionDetails>
-          {loading && <Skeleton variant="rounded" height={60} animation={false} />}
+          {loading && (
+            <Skeleton variant="rounded" height={60} animation={false} />
+          )}
           {sql && (
             <CodeBlock language="sql">
               {sqlFormat(sql, { language: 'mysql' })}
             </CodeBlock>
           )}
-          {error && <Typography color="error">{error.message}</Typography>}
+          {error && (
+            <>
+              <Typography color="error">{error.message}</Typography>
+              <RetryButton onClick={() => onRetry?.('sql')} />
+            </>
+          )}
         </AccordionDetails>
       </Accordion>
     </div>

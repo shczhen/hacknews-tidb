@@ -26,13 +26,26 @@ export default function AnswerCard(props: {
   const { question, highlight } = props;
   const [answerData, setAnswerData] = React.useState('');
   const [error, setError] = React.useState<Error | null>(null);
+  const [sqlRetryCount, setSqlRetryCount] = React.useState(0);
   const [rows, setRows] = React.useState<any[] | null>(null);
   const [chartAnswer, setChartAnswer] = React.useState<ChartAnswerProps | null>(
     null
   );
   const [chartError, setChartError] = React.useState<Error | null>(null);
+  const [chartRetryCount, setChartRetryCount] = React.useState(0);
 
   const [loading, setLoading] = useRecoilState(questionLoadingState);
+
+  const handleRetry = (type?: 'sql' | 'chart') => {
+    console.log('handleRetry', type);
+    if (type === 'sql') {
+      setError(null);
+      setSqlRetryCount(sqlRetryCount + 1);
+    } else if (type === 'chart') {
+      setChartRetryCount(chartRetryCount + 1);
+    }
+    setLoading(true);
+  };
 
   React.useEffect(() => {
     const getAnswer = async (question: string) => {
@@ -54,10 +67,10 @@ export default function AnswerCard(props: {
       }
     };
 
-    if (question && !answerData) {
+    if (question && !answerData && sqlRetryCount >= 0) {
       void getAnswer(question);
     }
-  }, [question]);
+  }, [question, sqlRetryCount]);
 
   React.useEffect(() => {
     const getDataAndChart = async (question: string, sql: string) => {
@@ -92,6 +105,7 @@ export default function AnswerCard(props: {
         rows={rows}
         answerError={error}
         chartError={chartError}
+        onRetry={handleRetry}
       />
     </>
   );
@@ -104,11 +118,19 @@ export interface CommonAnswerCard {
   answerError: Error | null;
   chartError: Error | null;
   rows: any[] | null;
+  onRetry?: (type?: 'sql' | 'chart') => void;
 }
 
 export function CommonAnswerCard(props: CommonAnswerCard) {
-  const { question, sqlAnswer, chartAnswer, answerError, chartError, rows } =
-    props;
+  const {
+    question,
+    sqlAnswer,
+    chartAnswer,
+    answerError,
+    chartError,
+    rows,
+    onRetry,
+  } = props;
 
   return (
     <Box
@@ -152,6 +174,7 @@ export function CommonAnswerCard(props: CommonAnswerCard) {
             loading={answerError ? false : !sqlAnswer}
             sql={sqlAnswer}
             error={answerError}
+            onRetry={onRetry}
           />
           {sqlAnswer && (
             <>
