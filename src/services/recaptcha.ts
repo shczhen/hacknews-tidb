@@ -49,6 +49,9 @@ export default class RecaptchaService {
   }
 
   async verifyRequest(req: NextApiRequest, res: NextApiResponse<any>) {
+    if (process.env.NODE_ENV === 'development') {
+      return true;
+    }
     if (!req.headers['x-recaptcha-token']) {
       this.logger.error(
         {

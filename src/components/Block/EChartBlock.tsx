@@ -161,6 +161,7 @@ export function generateLineOrBarChartOption(
 
   const lineOption = {
     xAxis: {
+      name: x,
       type: 'category',
       splitLine: {
         show: true,
@@ -171,32 +172,25 @@ export function generateLineOrBarChartOption(
       },
       data: rows.map((row) => row[x]),
     },
-    yAxis: {
-      type: 'value',
-      splitLine: {
-        show: true,
-        lineStyle: {
-          type: 'dashed',
-          color: 'lightgrey',
+    yAxis: flattenY.map((y) => {
+      return {
+        name: y,
+        type: 'value',
+        splitLine: {
+          show: true,
+          lineStyle: {
+            type: 'dashed',
+            color: 'lightgrey',
+          },
         },
-      },
-    },
-//     tooltip: {
-//       formatter: function (params: any) {
-//         return JSON.stringify(params.data);
-//       }
-//     },
+      };
+    }),
     tooltip: {
       trigger: 'axis',
     },
-    // series: [
-    //   {
-    //     data: rows.map((row) => row[y]),
-    //     type: type,
-    //   },
-    // ],
     series: flattenY.map((y) => {
       return {
+        name: y,
         data: rows.map((row) => row[y]),
         type: type,
       };
@@ -207,12 +201,20 @@ export function generateLineOrBarChartOption(
     yAxis: {
       type: 'category',
       data: rows.map((row) => row[x]),
+      name: x,
     },
-    xAxis: {
-      type: 'value',
+    xAxis: flattenY.map((y) => {
+      return {
+        type: 'value',
+        name: y,
+      };
+    }),
+    tooltip: {
+      trigger: 'axis',
     },
     series: flattenY.map((y) => {
       return {
+        name: y,
         data: rows.map((row) => row[y]),
         type: type,
       };
