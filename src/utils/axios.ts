@@ -1,8 +1,19 @@
 import axios from 'axios';
 
-const instance = axios.create({
+export const commonCfg = {
   // baseURL: 'https://api.example.com',
-  timeout: 10000,
-});
+  timeout: 15000,
+};
+
+const instance = axios.create(commonCfg);
+
+export function axiosWithRecaptchaToken(token: string) {
+  return axios.create({
+    ...commonCfg,
+    headers: {
+      'x-recaptcha-token': token,
+    },
+  });
+}
 
 export default instance;

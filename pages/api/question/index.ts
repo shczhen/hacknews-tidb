@@ -2,6 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { BotService } from 'src/services/bot';
 import Question2SQLTemplate from 'src/services/bot/templates/Question2SQLTemplate';
+import RecaptchaService from 'src/services/recaptcha';
+
 import logger from 'next-pino/logger';
 
 export default async function handler(
@@ -12,6 +14,12 @@ export default async function handler(
     res.status(405).end();
     return;
   }
+
+  const recaptchaService = new RecaptchaService();
+  const result = await recaptchaService.verifyRequest(req, res);
+
+  if (!result) return;
+
   const { question, token } = req.body;
   if (!question || !token || token !== process.env.API_TOKEN) {
     res.status(400).end();
