@@ -105,8 +105,8 @@ export default function SQLCard(props: SQLCardProps) {
             {error && (
               <RetryIconButton
                 onClick={(event) => {
-                  () => onRetry?.('sql');
                   event.stopPropagation();
+                  onRetry?.('sql');
                 }}
               />
             )}
