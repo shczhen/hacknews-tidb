@@ -1,9 +1,11 @@
 import * as React from 'react';
+import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import Container from '@mui/material/Container';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -28,7 +30,7 @@ import InputBase from '@mui/material/InputBase';
 
 import Layout from 'src/components/Layout';
 import AnswerCardsGroup from 'src/components/Card/AnswerCardsGroup';
-import { questionsState, questionLoadingState } from 'src/recoil/atoms';
+import { chatConversationIdState, chatMessagesState } from 'src/recoil/atoms';
 import logger from 'next-pino/logger';
 
 import { BotService } from 'src/services/bot';
@@ -39,7 +41,77 @@ import { ChartAnswerProps } from 'src/components/Card/AnswerCard';
 import HorizontalBar from '@src/components/HorizontalBar';
 import Seo from 'src/components/Layout/Seo';
 
+export type UserMessage = {
+  id: string;
+  type: 'user';
+  text: string;
+  conversationId?: string;
+  timestamp: number;
+};
+
+export type BotMessage = {
+  id: string;
+  type: 'bot';
+  text: string;
+  conversationId: string;
+  timestamp: number;
+};
+
+export type ChatMessage = UserMessage | BotMessage;
+
+const mockMessages: ChatMessage[] = [
+  {
+    id: '1',
+    type: 'user',
+    text: 'How many people are in the US?',
+    timestamp: 1629200000000,
+  },
+  {
+    id: '2',
+    type: 'bot',
+    text: 'There are 328.2 million people in the US.',
+    conversationId: '1',
+    timestamp: 1629200000000,
+  },
+  {
+    id: '3',
+    type: 'user',
+    text: 'How many people are in the US?',
+    timestamp: 1629200000000,
+  },
+  {
+    id: '4',
+    type: 'bot',
+    text: 'There are 328.2 million people in the US.',
+    conversationId: '1',
+    timestamp: 1629200000000,
+  },
+];
+
 export default function ChatPage() {
+  const [inputString, setInputString] = React.useState('');
+
+  const [conversationId, setConversationId] = useRecoilState(
+    chatConversationIdState
+  );
+  const [messages, setMessages] = useRecoilState(chatMessagesState);
+
+  const handleSubmit = async (text: string) => {
+    const timestamp = Date.now();
+    setMessages((prev) => {
+      return [
+        ...prev,
+        {
+          id: `${timestamp}`,
+          type: 'user',
+          text,
+          timestamp,
+        },
+      ];
+    });
+    setInputString('');
+  };
+
   return (
     <>
       <ChatLayout>
@@ -49,6 +121,7 @@ export default function ChatPage() {
             flexGrow: 1,
           }}
         >
+          <ChatBubbles items={messages} />
           <AppBar
             position="fixed"
             sx={{
@@ -69,22 +142,30 @@ export default function ChatPage() {
                   <StyledInputBase
                     placeholder="Input your question here…"
                     inputProps={{ 'aria-label': 'chat' }}
-                    // disabled={disableSearch}
-                    // value={search}
-                    // onChange={(e) => {
-                    //   setSearch(e.target.value);
-                    // }}
-                    // onKeyDown={(e) => {
-                    //   if (e.key === 'Enter') {
-                    //     console.log('search', search);
-                    //     if (handleSearch) {
-                    //       handleSearch(search);
-                    //     }
-                    //   }
-                    // }}
+                    value={inputString}
+                    onChange={(e) => {
+                      setInputString(e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        console.log('chat message', inputString);
+                        if (handleSubmit) {
+                          handleSubmit(inputString);
+                        }
+                      }
+                    }}
                   />
                 </Input>
-                <IconButton color="inherit" aria-label="restart conversation">
+                <IconButton
+                  color="inherit"
+                  aria-label="restart conversation"
+                  disabled={inputString === ''}
+                  onClick={() => {
+                    if (handleSubmit) {
+                      handleSubmit(inputString);
+                    }
+                  }}
+                >
                   <SendIcon />
                 </IconButton>
               </Toolbar>
@@ -92,6 +173,57 @@ export default function ChatPage() {
           </AppBar>
         </Box>
       </ChatLayout>
+    </>
+  );
+}
+
+function ChatBubbles(props: { items: ChatMessage[] }) {
+  const { items } = props;
+
+  const messagesMemo = React.useMemo(() => {
+    return _.reverse([...items]);
+  }, [items]);
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column-reverse',
+        gap: '1rem',
+
+        height: 'calc(100vh - 64px)',
+        pt: '1rem',
+        pb: '1rem',
+        overflowY: 'auto',
+      }}
+    >
+      {messagesMemo.map((item) => {
+        return <ChatBubble key={item.id} item={item} />;
+      })}
+    </Box>
+  );
+}
+
+function ChatBubble(props: { item: ChatMessage }) {
+  const { type, text, timestamp } = props.item;
+  return (
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: type === 'user' ? 'row-reverse' : 'row',
+        }}
+      >
+        <Paper
+          variant="outlined"
+          sx={{
+            padding: '1rem',
+            maxWidth: '80%',
+          }}
+        >
+          {type}:{text}
+        </Paper>
+      </Box>
     </>
   );
 }
