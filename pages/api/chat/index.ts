@@ -1,18 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { ChatMessage } from 'chatgpt';
 
 import ChatBotService from 'src/services/chatGPT';
 import logger from 'next-pino/logger';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<any>
+  res: NextApiResponse<Partial<ChatMessage>>
 ) {
   if (req.method !== 'POST') {
     res.status(405).end();
     return;
   }
   const { message, conversationId, parentMessageId } = req.body;
-  if (!message) {
+  const token = req.headers.authorization;
+  if (!message || !token || token !== process.env.CHATGPT_TOKEN) {
     res.status(400).end();
     return;
   }

@@ -30,7 +30,11 @@ import InputBase from '@mui/material/InputBase';
 
 import Layout from 'src/components/Layout';
 import AnswerCardsGroup from 'src/components/Card/AnswerCardsGroup';
-import { chatConversationIdState, chatMessagesState } from 'src/recoil/atoms';
+import {
+  chatConversationIdState,
+  chatMessagesState,
+  chatLoadingState,
+} from 'src/recoil/atoms';
 import logger from 'next-pino/logger';
 
 import { BotService } from 'src/services/bot';
@@ -40,53 +44,8 @@ import Question2SQLTemplate from 'src/services/bot/templates/Question2SQLTemplat
 import { ChartAnswerProps } from 'src/components/Card/AnswerCard';
 import HorizontalBar from '@src/components/HorizontalBar';
 import Seo from 'src/components/Layout/Seo';
-
-export type UserMessage = {
-  id: string;
-  type: 'user';
-  text: string;
-  conversationId?: string;
-  timestamp: number;
-};
-
-export type BotMessage = {
-  id: string;
-  type: 'bot';
-  text: string;
-  conversationId: string;
-  timestamp: number;
-};
-
-export type ChatMessage = UserMessage | BotMessage;
-
-const mockMessages: ChatMessage[] = [
-  {
-    id: '1',
-    type: 'user',
-    text: 'How many people are in the US?',
-    timestamp: 1629200000000,
-  },
-  {
-    id: '2',
-    type: 'bot',
-    text: 'There are 328.2 million people in the US.',
-    conversationId: '1',
-    timestamp: 1629200000000,
-  },
-  {
-    id: '3',
-    type: 'user',
-    text: 'How many people are in the US?',
-    timestamp: 1629200000000,
-  },
-  {
-    id: '4',
-    type: 'bot',
-    text: 'There are 328.2 million people in the US.',
-    conversationId: '1',
-    timestamp: 1629200000000,
-  },
-];
+import axios from 'src/utils/axios';
+import { UserMessage, BotMessage, ChatMessage } from 'src/types';
 
 export default function ChatPage() {
   const [inputString, setInputString] = React.useState('');
@@ -95,8 +54,10 @@ export default function ChatPage() {
     chatConversationIdState
   );
   const [messages, setMessages] = useRecoilState(chatMessagesState);
+  const [loading, setLoading] = useRecoilState(chatLoadingState);
 
   const handleSubmit = async (text: string) => {
+    const previousMsg = _.last(messages);
     const timestamp = Date.now();
     setMessages((prev) => {
       return [
@@ -106,11 +67,56 @@ export default function ChatPage() {
           type: 'user',
           text,
           timestamp,
+          conversationId,
+          parentMessageId: previousMsg?.id,
         },
       ];
     });
     setInputString('');
+    setLoading(true);
   };
+
+  React.useEffect(() => {
+    const sendSingleMsg = async (previousMsg: UserMessage) => {
+      const reqBody =
+        previousMsg?.parentMessageId && conversationId
+          ? {
+              message: previousMsg.text,
+              conversationId,
+              parentMessageId: previousMsg.parentMessageId,
+            }
+          : {
+              message: previousMsg.text,
+            };
+      const res = await axios
+        .post('/api/chat', reqBody, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${localStorage.getItem('chat2query.token')}`,
+          },
+        })
+        .then((res) => res.data);
+      setConversationId(res.conversationId);
+      setMessages((prev) => {
+        return [
+          ...prev,
+          {
+            id: res.id,
+            type: 'bot',
+            text: res.text,
+            timestamp: Date.now(),
+            conversationId: res.conversationId,
+            parentMessageId: previousMsg.id,
+          },
+        ];
+      });
+      setLoading(false);
+    };
+    const previousMsg = _.last(messages);
+    if (previousMsg && previousMsg.type === 'user') {
+      sendSingleMsg(previousMsg);
+    }
+  }, [messages]);
 
   return (
     <>
@@ -146,6 +152,7 @@ export default function ChatPage() {
                     onChange={(e) => {
                       setInputString(e.target.value);
                     }}
+                    disabled={loading}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
                         console.log('chat message', inputString);
@@ -159,7 +166,7 @@ export default function ChatPage() {
                 <IconButton
                   color="inherit"
                   aria-label="restart conversation"
-                  disabled={inputString === ''}
+                  disabled={loading || inputString === ''}
                   onClick={() => {
                     if (handleSubmit) {
                       handleSubmit(inputString);
