@@ -22,7 +22,7 @@ export default async function handler(
   if (!result) return;
 
   const { question, sql, token } = req.body;
-  if (!question || !token || token !== process.env.API_TOKEN) {
+  if (!question) {
     res.status(400).end();
     return;
   }
