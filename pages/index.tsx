@@ -70,6 +70,15 @@ export default function Home(props: HomeProps) {
 // It won't be called on client-side, so you can even do
 // direct database queries.
 export async function getStaticProps() {
+  // ! TO REMOVE
+  return {
+    props: {
+      question: '',
+      rows: [],
+      sqlAnswer: '',
+      chartAnswer: {},
+    },
+  };
   if (process.env.NODE_ENV === 'development') {
     return {
       props: {
