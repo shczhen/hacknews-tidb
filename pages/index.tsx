@@ -79,51 +79,51 @@ export async function getStaticProps() {
       chartAnswer: {},
     },
   };
-  if (process.env.NODE_ENV === 'development') {
-    return {
-      props: {
-        question: '',
-        rows: [],
-        sqlAnswer: '',
-        chartAnswer: {},
-      },
-    };
-  }
-  const MOCK_QUESTION = 'How many new stories and comments per month?';
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-  // const res = await fetch('https://.../posts');
-  // const posts = await res.json();
-  const botService = new BotService(logger, process.env.OPENAI_API_KEY || '');
-  const questionTemplate = new Question2SQLTemplate();
-  const dataTemplate = new Data2ChartTemplate();
+  // if (process.env.NODE_ENV === 'development') {
+  //   return {
+  //     props: {
+  //       question: '',
+  //       rows: [],
+  //       sqlAnswer: '',
+  //       chartAnswer: {},
+  //     },
+  //   };
+  // }
+  // const MOCK_QUESTION = 'How many new stories and comments per month?';
+  // // Call an external API endpoint to get posts.
+  // // You can use any data fetching library
+  // // const res = await fetch('https://.../posts');
+  // // const posts = await res.json();
+  // const botService = new BotService(logger, process.env.OPENAI_API_KEY || '');
+  // const questionTemplate = new Question2SQLTemplate();
+  // const dataTemplate = new Data2ChartTemplate();
 
-  const { answer: sqlAnswer } = await botService.getAnswer(
-    MOCK_QUESTION,
-    questionTemplate
-  );
-  if (!sqlAnswer) {
-    throw new Error('[HOME] No answer');
-  }
-  const mysqlService = new MySQLService(await initConnection());
-  const { rows, error } = await mysqlService.execute(sqlAnswer);
-  mysqlService.cleanUp();
-  if (error) {
-    throw new Error(error);
-  }
-  const { answer: chartAnswer } = await botService.data2Chart(
-    MOCK_QUESTION,
-    rows,
-    dataTemplate
-  );
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      question: MOCK_QUESTION,
-      rows,
-      sqlAnswer,
-      chartAnswer: JSON.parse(chartAnswer || ''),
-    },
-  };
+  // const { answer: sqlAnswer } = await botService.getAnswer(
+  //   MOCK_QUESTION,
+  //   questionTemplate
+  // );
+  // if (!sqlAnswer) {
+  //   throw new Error('[HOME] No answer');
+  // }
+  // const mysqlService = new MySQLService(await initConnection());
+  // const { rows, error } = await mysqlService.execute(sqlAnswer);
+  // mysqlService.cleanUp();
+  // if (error) {
+  //   throw new Error(error);
+  // }
+  // const { answer: chartAnswer } = await botService.data2Chart(
+  //   MOCK_QUESTION,
+  //   rows,
+  //   dataTemplate
+  // );
+  // // By returning { props: { posts } }, the Blog component
+  // // will receive `posts` as a prop at build time
+  // return {
+  //   props: {
+  //     question: MOCK_QUESTION,
+  //     rows,
+  //     sqlAnswer,
+  //     chartAnswer: JSON.parse(chartAnswer || ''),
+  //   },
+  // };
 }
