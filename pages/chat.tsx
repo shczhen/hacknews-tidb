@@ -228,7 +228,7 @@ function ChatBubble(props: { item: ChatMessage }) {
             maxWidth: '80%',
           }}
         >
-          {type}:{text}
+          {text}
         </Paper>
       </Box>
     </>
