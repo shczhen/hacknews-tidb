@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Script from 'next/script';
 import Head from 'next/head';
 
 import Header, {

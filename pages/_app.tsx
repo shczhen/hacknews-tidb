@@ -9,6 +9,8 @@ import theme from '@src/theme';
 import type { AppProps } from 'next/app';
 import { RecoilRoot, useRecoilSnapshot } from 'recoil';
 
+import GA4 from 'src/components/Layout/GoogleAnalytics';
+
 function DebugObserver(): any {
   const snapshot = useRecoilSnapshot();
   React.useEffect(() => {
@@ -26,6 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <DebugObserver />
       <ThemeProvider theme={theme}>
+        <GA4 />
         <Component {...pageProps} />
       </ThemeProvider>
     </RecoilRoot>
