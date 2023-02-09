@@ -1,7 +1,5 @@
 import { axiosWithRecaptchaToken } from 'src/utils/axios';
 
-const TOEKN = `dGVzdCBobiBjaGF0MnF1ZXJ5`;
-
 async function waitGRecaptchaReady(): Promise<boolean> {
   // const checkGRecaptcha = new Promise<boolean>((resolve, reject) => {
   //   const timer = setInterval(() => {
@@ -42,7 +40,6 @@ export async function postQuestion(question: string) {
   return axios
     .post('/api/question', {
       question,
-      token: TOEKN,
     })
     .then((response) => response.data);
 }
@@ -61,7 +58,6 @@ export async function postSQL2Chart(question: string, sql: string) {
     .post('/api/chart', {
       question,
       sql,
-      token: TOEKN,
     })
     .then((response) => response.data);
 }

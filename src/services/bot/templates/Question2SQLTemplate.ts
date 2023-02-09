@@ -38,6 +38,7 @@ class Question2SQLTemplate implements Template {
 # Notice: don't output superfluous and leading double quote in sql
 
 Must append the limit to SQL!!!
+Today is ${new Date().toLocaleDateString()}.
 Let's think step by step, use best practice of writing SQL, use common table expression if necessary, generate only one SQL to answer this question: "(I want you think like a god)${question}"`;
   }
 }

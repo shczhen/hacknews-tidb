@@ -16,16 +16,19 @@ export default async function handler(
     return;
   }
 
-  const recaptchaService = new RecaptchaService();
-  const result = await recaptchaService.verifyRequest(req, res);
+  if (process.env.NODE_ENV !== 'development') {
+    const recaptchaService = new RecaptchaService();
+    const result = await recaptchaService.verifyRequest(req, res);
 
-  if (!result) return;
+    if (!result) return;
+  }
 
   const { question, sql, token } = req.body;
-  if (!question || !token || token !== process.env.API_TOKEN) {
+  if (!question) {
     res.status(400).end();
     return;
   }
+
   const botService = new BotService(logger, process.env.OPENAI_API_KEY || '');
   const template = new Data2ChartTemplate();
   const mysqlService = new MySQLService(await initConnection());
