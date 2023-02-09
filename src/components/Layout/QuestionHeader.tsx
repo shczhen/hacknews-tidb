@@ -13,7 +13,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Container from '@mui/material/Container';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { TiDBCloudLogo } from 'src/components/Icons';
+import { TiDBCloudLogo, WebsiteLogo } from 'src/components/Icons';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -88,20 +88,33 @@ export default function SearchAppBar(props: SearchAppBarProps) {
         <Container>
           <Toolbar sx={{ gap: '1rem', backgroundColor: 'hn.primary' }}>
             <Link href="/">
-              <Typography
-                variant="body1"
-                noWrap
-                overflow="visible"
+              <Box
                 sx={{
-                  lineHeight: 1.2,
-                  color: '#222',
-                  fontSize: { xs: '16px', md: '20px' },
+                  display: 'flex',
+                  gap: '0.5rem',
                 }}
               >
-                Chat2Query
-                <br />
-                Hacker News
-              </Typography>
+                <WebsiteLogo
+                  sx={{
+                    width: '3rem',
+                    height: '3rem',
+                  }}
+                />
+                <Typography
+                  variant="body1"
+                  noWrap
+                  overflow="visible"
+                  sx={{
+                    lineHeight: 1.2,
+                    color: '#222',
+                    fontSize: { xs: '16px', md: '20px' },
+                  }}
+                >
+                  Chat2Query
+                  <br />
+                  Hacker News
+                </Typography>
+              </Box>
             </Link>
             <Search>
               <SearchIconWrapper>
