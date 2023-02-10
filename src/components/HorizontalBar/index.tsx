@@ -17,7 +17,7 @@ const STATIC_QUESTIONS = [
   `How many github.com urls are shared per month?`,
   `Top TLD that is most used by the shared sites?`,
   `how many times is Web3 mentioned on hackernews per month`,
-  `How frequently are SQL vs Hadoop mentioned on Hacker News each month?`,
+  `How frequently are SQL vs Hadoop mentioned on Hacker News each month? Compare them`,
   `Stories with most comments in 2022?`,
   `Stories with most score in 2022?`,
   `how many times is hn.algolia.com mentioned each month`,
