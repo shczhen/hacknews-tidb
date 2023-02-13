@@ -98,6 +98,7 @@ export default function SearchAppBar(props: SearchAppBarProps) {
                   sx={{
                     width: '3rem',
                     height: '3rem',
+                    fill: 'transparent'
                   }}
                 />
                 <Typography
