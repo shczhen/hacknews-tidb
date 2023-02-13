@@ -38,12 +38,7 @@ export function RetryIconButton(props: RetryButtonProps) {
       onClick={onClick}
       size="small"
       sx={{
-        color: 'white',
         fontSize: '0.75rem',
-        backgroundColor: 'hn.primary',
-        '&:hover': {
-          backgroundColor: 'hn.primary',
-        },
       }}
     >
       <ReplayIcon fontSize="inherit" />
