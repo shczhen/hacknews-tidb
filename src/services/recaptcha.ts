@@ -48,7 +48,11 @@ export default class RecaptchaService {
     return response;
   }
 
-  async verifyRequest(req: NextApiRequest, res: NextApiResponse<any>) {
+  async verifyRequest(
+    req: NextApiRequest,
+    res: NextApiResponse<any>,
+    action: string
+  ) {
     if (process.env.NODE_ENV === 'development') {
       return true;
     }
@@ -85,7 +89,7 @@ export default class RecaptchaService {
       return false;
     }
 
-    if (response.tokenProperties.action === 'CHAT') {
+    if (response.tokenProperties.action === action) {
       return true;
     } else {
       this.logger.error(
@@ -93,7 +97,7 @@ export default class RecaptchaService {
           name: 'RecaptchaService/verifyRequest',
           error: response,
         },
-        `Fail[${response.riskAnalysis?.reasons}]: ${response.tokenProperties?.action} is not CHAT`
+        `Fail[${response.riskAnalysis?.reasons}]: ${response.tokenProperties?.action} is not ${action}`
       );
       res.status(500)?.json({
         reason: response.riskAnalysis?.reasons,

@@ -17,7 +17,7 @@ export default async function handler(
 
   if (process.env.NODE_ENV !== 'development') {
     const recaptchaService = new RecaptchaService();
-    const result = await recaptchaService.verifyRequest(req, res);
+    const result = await recaptchaService.verifyRequest(req, res, 'ADMIN');
 
     if (!result) return;
   }
