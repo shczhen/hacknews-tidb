@@ -29,7 +29,7 @@ export default async function handler(
   }
 
   const mysqlService = new MySQLService(await initConnection());
-  const { rows, fields, error } = await mysqlService.execute(`${sql}`);
+  const { rows, error } = await mysqlService.execute(sql);
   mysqlService.cleanUp();
   if (error) {
     // throw new Error(error);
@@ -40,8 +40,8 @@ export default async function handler(
       },
       `execute SQL error`
     );
-    res.status(500).json(error);
+    res.status(500).json({ error });
   }
 
-  res.status(200).json({ rows, fields });
+  res.status(200).json({ rows, sql });
 }
