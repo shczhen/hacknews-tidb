@@ -1,6 +1,6 @@
 import { axiosWithRecaptchaToken } from 'src/utils/axios';
 
-async function waitGRecaptchaReady(): Promise<boolean> {
+export async function waitGRecaptchaReady(): Promise<boolean> {
   // const checkGRecaptcha = new Promise<boolean>((resolve, reject) => {
   //   const timer = setInterval(() => {
   //     if (grecaptcha.enterprise) {

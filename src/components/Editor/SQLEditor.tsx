@@ -4,12 +4,8 @@ import { ReactNode } from 'react';
 import AceEditor, { IAceOptions } from 'react-ace';
 
 import 'ace-builds/src-noconflict/mode-sql';
-import 'ace-builds/src-noconflict/theme-github';
+import 'ace-builds/src-noconflict/theme-xcode';
 import 'ace-builds/src-noconflict/ext-language_tools';
-
-// function onChange(newValue: string) {
-//   console.log('change', newValue);
-// }
 
 export interface AceSQLEditorProps {
   placeholder?: string;
@@ -25,6 +21,8 @@ export interface AceSQLEditorProps {
   loading?: boolean;
   setOptions?: IAceOptions;
   extra?: ReactNode;
+  enableBasicAutocompletion?: boolean;
+  enableLiveAutocompletion?: boolean;
 }
 
 export default function AceSQLEditor(props: AceSQLEditorProps) {
@@ -47,6 +45,8 @@ export default function AceSQLEditor(props: AceSQLEditorProps) {
       width="100%"
       height="100%"
       setOptions={props.setOptions}
+      enableBasicAutocompletion={props.enableBasicAutocompletion}
+      enableLiveAutocompletion={props.enableLiveAutocompletion}
     />
   );
 }
