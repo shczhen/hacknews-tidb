@@ -12,6 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import Container from '@mui/material/Container';
 import ClearIcon from '@mui/icons-material/Clear';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 import { TiDBCloudLogo, WebsiteLogo } from 'src/components/Icons';
 
@@ -98,7 +99,7 @@ export default function SearchAppBar(props: SearchAppBarProps) {
                   sx={{
                     width: '3rem',
                     height: '3rem',
-                    fill: 'transparent'
+                    fill: 'transparent',
                   }}
                 />
                 <Typography
@@ -189,6 +190,15 @@ export default function SearchAppBar(props: SearchAppBarProps) {
                 </Box>
               </Box>
             </Search>
+            <IconButton
+              aria-label="admin"
+              disableRipple
+              onClick={() => {
+                router.push('/admin');
+              }}
+            >
+              <SettingsIcon />
+            </IconButton>
           </Toolbar>
         </Container>
       </AppBar>
