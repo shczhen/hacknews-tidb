@@ -194,7 +194,7 @@ export default function SearchAppBar(props: SearchAppBarProps) {
               aria-label="admin"
               disableRipple
               onClick={() => {
-                router.push('/admin');
+                router && router.push('/admin');
               }}
             >
               <SettingsIcon />
