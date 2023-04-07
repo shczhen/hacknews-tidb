@@ -15,6 +15,9 @@ import SendIcon from '@mui/icons-material/Send';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Head from 'next/head';
+import ReactMarkdown from 'react-markdown';
+
+import 'github-markdown-css/github-markdown-light.css';
 
 import { chatMessagesState } from 'src/recoil/atoms';
 
@@ -162,8 +165,16 @@ function ChatBubble(props: { item: ChatMessageType }) {
             padding: '1rem',
             maxWidth: '80%',
           }}
+          className="markdown-body"
         >
-          {content}
+          {/* <Typography
+            sx={{
+              whiteSpace: 'break-spaces',
+            }}
+          >
+            {content}
+          </Typography> */}
+          <ReactMarkdown>{content}</ReactMarkdown>
         </Paper>
       </Box>
     </>
