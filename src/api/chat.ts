@@ -22,3 +22,20 @@ export async function postChatMessages(
     })
     .then((response) => response.data);
 }
+
+export async function postRunSql(sql: string) {
+  await waitGRecaptchaReady();
+  const grecaptchaToken = await grecaptcha.enterprise.execute(
+    process.env.NEXT_PUBLIC_RECAPTCHA_KEY || '',
+    {
+      action: 'CHAT',
+    }
+  );
+  const axios = axiosWithRecaptchaToken(grecaptchaToken);
+
+  return axios
+    .post('/api/sql/run', {
+      sql,
+    })
+    .then((response) => response.data);
+}

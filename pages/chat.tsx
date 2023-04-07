@@ -16,13 +16,17 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Head from 'next/head';
 import ReactMarkdown from 'react-markdown';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import 'github-markdown-css/github-markdown-light.css';
 
 import { chatMessagesState } from 'src/recoil/atoms';
 
-import { postChatMessages } from 'src/api/chat';
+import { postChatMessages, postRunSql } from 'src/api/chat';
 import { ChatMessageType } from 'src/types';
+import { retrieveCodeFromMdString } from 'src/utils/chat';
+import { row2string } from 'src/utils/stringfy';
+import CodeBlock from 'src/components/Block/CodeBlock';
 
 export default function ChatPage() {
   const [inputString, setInputString] = React.useState('');
@@ -167,14 +171,8 @@ function ChatBubble(props: { item: ChatMessageType }) {
           }}
           className="markdown-body"
         >
-          {/* <Typography
-            sx={{
-              whiteSpace: 'break-spaces',
-            }}
-          >
-            {content}
-          </Typography> */}
-          <ReactMarkdown>{content}</ReactMarkdown>
+          {role === 'user' && <ReactMarkdown>{content}</ReactMarkdown>}
+          {role === 'assistant' && <AssistantBubbleContent content={content} />}
         </Paper>
       </Box>
     </>
@@ -234,3 +232,76 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     width: '100%',
   },
 }));
+
+const AssistantBubbleContent = (props: { content: string }) => {
+  const { content } = props;
+  const [loading, setLoading] = React.useState(false);
+  const [errorMsg, setErrorMsg] = React.useState('');
+  const [result, setResult] = React.useState<null | { rows: any; fields: any }>(
+    null
+  );
+
+  const SqlStrMemo = React.useMemo(() => {
+    return retrieveCodeFromMdString(content);
+  }, [content]);
+
+  const handleRunSql = async () => {
+    if (!SqlStrMemo) {
+      return;
+    }
+
+    setLoading(true);
+    setErrorMsg('');
+    setResult(null);
+    try {
+      const res = await postRunSql(SqlStrMemo);
+      setResult(res);
+      console.log('res', res);
+    } catch (error: any) {
+      console.error(error);
+      setErrorMsg(
+        error?.response?.data?.error?.message ||
+          error?.message ||
+          `Unknown error`
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <ReactMarkdown>{content}</ReactMarkdown>
+      {SqlStrMemo && (
+        <LoadingButton
+          loading={loading}
+          onClick={handleRunSql}
+          variant="contained"
+          sx={{
+            backgroundColor: 'hn.primary',
+            '&:hover': {
+              backgroundColor: 'hn.primary',
+            },
+          }}
+        >
+          Run SQL
+        </LoadingButton>
+      )}
+      {errorMsg && (
+        <Typography color="error" variant="body2">
+          {errorMsg}
+        </Typography>
+      )}
+      {result && (<Box pt={2}>
+        <CodeBlock
+          language="bash"
+          boxSx={{
+            border: '0.5px solid #e0e0e0',
+          }}
+        >
+          {row2string(result.rows)}
+        </CodeBlock></Box>
+      )}
+    </>
+  );
+};
